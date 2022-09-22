@@ -4,33 +4,33 @@
 
 ### Student Info
 
--   Name: YOUR NAME
--   Section: ##
+-   Name: Chris Stehlar
+-   Section: 05/06
 
 ## Game Design
 
--   Camera Orientation: _How are the art assets viewed from? (ie. topdown or side)_
--   Camera Movement: _How does the camera move in your game? (if at all)_
--   Player Health: _How are you handling player health? (healthbar, lives, ?)_
--   End Condition: _How does a game/round/level end?_
--   Scoring: _How does the player earn points in your game?_
+-   Camera Orientation: Topdown
+-   Camera Movement: Follow player
+-   Player Health: Healthbar
+-   End Condition: Wave survival
+-   Scoring: Kill count and time survived
 
 ### Game Description
 
-_A brief explanation of your game. Inculde what is the objective for the player. Think about what would go on the back of a game box._
+Play as a scientist who has lost control of the lab. Test subjects are on the loose, and they are out for revenge. How long can you survive?
 
 ### Controls
 
 -   Movement
-    -   Up: 
-    -   Down: 
-    -   Left: 
-    -   Right: 
--   Fire: 
+    -   Up: W
+    -   Down: S
+    -   Left: A
+    -   Right: D
+-   Fire: Left-click
 
-## You Additions
+## Your Additions
 
-_List out what you added to your game to make it different for you_
+I plan to make all of the assets myself. I am going to try to stick to the minimum viable product in order to have plenty of time for asset production.
 
 ## Sources
 
