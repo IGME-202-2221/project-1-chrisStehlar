@@ -19,14 +19,13 @@ public class PlayerController : MonoBehaviour
         Cursor.SetCursor(cursorTex, Vector2.zero, CursorMode.Auto);
     }
 
-    // Update is called once per frame
     void Update()
     {
         CheckForMovement();
 
         CheckMouse();
 
-        this.transform.position += new Vector3(velocity.x, velocity.y, 0).normalized * speed * Time.fixedDeltaTime;
+        this.transform.position += new Vector3(velocity.x, velocity.y, 0).normalized * speed * Time.deltaTime;
 
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -34,6 +33,7 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
 
     // METHODS
 

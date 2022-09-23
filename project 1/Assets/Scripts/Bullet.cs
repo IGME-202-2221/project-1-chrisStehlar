@@ -20,11 +20,11 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        this.transform.position += new Vector3(transform.right.x, transform.right.y, 0).normalized * speed * Time.fixedDeltaTime;
+        this.transform.position += new Vector3(transform.right.x, transform.right.y, 0).normalized * speed * Time.deltaTime;
     }
+
 
     // METHODS
 

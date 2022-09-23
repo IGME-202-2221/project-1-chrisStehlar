@@ -31,7 +31,7 @@ public class Gun : MonoBehaviour
     {
         if(Time.time - lastShotTime > shotCooldown)
         {
-            Debug.Log("shoot");
+            //Debug.Log("shoot");
             GameObject bulletObj = Instantiate(bullet.gameObject, this.transform.position, this.transform.rotation);
             bulletObj.transform.right = direction;
 
