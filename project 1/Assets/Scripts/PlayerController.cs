@@ -11,8 +11,8 @@ public class PlayerController : MonoBehaviour
 
     public Texture2D cursorTex;
 
-    public Gun weapon;
-    private Gun weaponInstance;
+    public Gun weapon; // the prefab
+    private Gun weaponInstance; // the copy (edit this)
     
     // MONO
 
@@ -29,15 +29,12 @@ public class PlayerController : MonoBehaviour
         CheckForMovement();
 
         CheckMouse();
-
-        this.transform.position += new Vector3(velocity.x, velocity.y, 0).normalized * speed * Time.deltaTime;
-
+        
+        // CheckAttack()
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
-            //this.GetComponent<Gun>().TryToShoot(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
             weaponInstance.TryToShoot(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
         }
-
     }
 
 
@@ -103,5 +100,8 @@ public class PlayerController : MonoBehaviour
         {
             velocity += Vector2.right;
         }
+
+        // apply the movement
+        this.transform.position += new Vector3(velocity.x, velocity.y, 0).normalized * speed * Time.deltaTime;
     }
 }

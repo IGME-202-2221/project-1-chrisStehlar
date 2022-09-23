@@ -26,6 +26,7 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
+        // move forward constantly
         this.transform.position += new Vector3(transform.right.x, transform.right.y, 0).normalized * speed * Time.deltaTime;
 
         // despawn if for some reason this bullet goes off into infinity

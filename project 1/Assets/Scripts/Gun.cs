@@ -37,20 +37,14 @@ public class Gun : MonoBehaviour
         {
             float currentShotAngle =  0 - (shotAngle / 2);
 
-            //Debug.Log("shoot");
             for(int i = 0; i < shotCount; i++)
             {
                 GameObject bulletObj = Instantiate(bullet.gameObject, this.transform.position, this.transform.rotation);
 
-                //Quaternion shotAngleRot = Quaternion.Euler(new Vector3(0, 0, currentShotAngle));
-
-                //bulletObj.transform.right = Quaternion.Euler(0 ,0, currentShotAngle) * direction;
-                bulletObj.transform.right = Quaternion.Euler(0 ,0, currentShotAngle) * direction;
+                bulletObj.transform.right = Quaternion.Euler(0 ,0, currentShotAngle) * direction; // the direction vector with an offset
                 
-                currentShotAngle += (shotAngle / shotCount);
+                currentShotAngle += (shotAngle / shotCount);    // increase the angle offset
             }
-
-            
 
             lastShotTime = Time.time;
         }
