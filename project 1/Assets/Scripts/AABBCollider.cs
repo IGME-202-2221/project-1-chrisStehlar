@@ -14,14 +14,12 @@ public class AABBCollider : MonoBehaviour
     public delegate void AABBCollision(AABBCollider collider); // for collision
     public event AABBCollision OnIntersect; // subscribe other scripts to this
 
-    private bool intersecting;
-
     // MONO
 
     // Start is called before the first frame update
     void Start()
     {
-        intersecting = false;
+        
     }
 
     // Update is called once per frame
@@ -82,7 +80,6 @@ public class AABBCollider : MonoBehaviour
                 if(other.bounds.min.x < bounds.max.x && other.bounds.max.x > bounds.min.x && other.bounds.max.y > bounds.min.y && other.bounds.min.y < bounds.max.y)
                 {
                     //Debug.DrawRay(bounds.center, Vector2.up, Color.blue, .01f);
-                    intersecting = true;
                     
                     if(OnIntersect != null)
                         OnIntersect(other);
@@ -92,6 +89,5 @@ public class AABBCollider : MonoBehaviour
             }
         }
 
-        intersecting = false; // if there was no valid collisions, then intersecting is not true
     }
 }
