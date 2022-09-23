@@ -13,6 +13,7 @@ public class Gun : MonoBehaviour
 
     public float shotCount;
     public Vector2 offset;
+    public float shotAngle; // all the bullets fit in this angle
 
     // MONO
 
@@ -34,9 +35,22 @@ public class Gun : MonoBehaviour
     {
         if(Time.time - lastShotTime > shotCooldown)
         {
+            float currentShotAngle =  0 - (shotAngle / 2);
+
             //Debug.Log("shoot");
-            GameObject bulletObj = Instantiate(bullet.gameObject, this.transform.position, this.transform.rotation);
-            bulletObj.transform.right = direction;
+            for(int i = 0; i < shotCount; i++)
+            {
+                GameObject bulletObj = Instantiate(bullet.gameObject, this.transform.position, this.transform.rotation);
+
+                //Quaternion shotAngleRot = Quaternion.Euler(new Vector3(0, 0, currentShotAngle));
+
+                //bulletObj.transform.right = Quaternion.Euler(0 ,0, currentShotAngle) * direction;
+                bulletObj.transform.right = Quaternion.Euler(0 ,0, currentShotAngle) * direction;
+                
+                currentShotAngle += (shotAngle / shotCount);
+            }
+
+            
 
             lastShotTime = Time.time;
         }
