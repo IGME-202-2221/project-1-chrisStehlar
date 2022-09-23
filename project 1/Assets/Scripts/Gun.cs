@@ -11,6 +11,9 @@ public class Gun : MonoBehaviour
 
     private float lastShotTime;
 
+    public float shotCount;
+    public Vector2 offset;
+
     // MONO
 
     // Start is called before the first frame update
