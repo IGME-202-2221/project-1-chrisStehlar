@@ -28,6 +28,11 @@ public class PlayerController : MonoBehaviour
 
         this.transform.position += new Vector3(velocity.x, velocity.y, 0).normalized * speed * Time.fixedDeltaTime;
 
+        if(Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            this.GetComponent<Gun>().TryToShoot(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
+        }
+
     }
 
     // METHODS

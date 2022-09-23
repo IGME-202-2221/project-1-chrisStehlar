@@ -2023,6 +2023,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1972486812}
   - component: {fileID: 1972486811}
+  - component: {fileID: 1972486813}
   m_Layer: 0
   m_Name: infectedDoctor
   m_TagString: Untagged
@@ -2095,6 +2096,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1972486813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972486810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78af1e774da150646b51de0b11b16082, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scale: 1
+  bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
 --- !u!1 &1978234351
 GameObject:
   m_ObjectHideFlags: 0
@@ -2150,6 +2167,8 @@ GameObject:
   - component: {fileID: 2013701623}
   - component: {fileID: 2013701622}
   - component: {fileID: 2013701624}
+  - component: {fileID: 2013701625}
+  - component: {fileID: 2013701626}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -2236,6 +2255,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.5
   cursorTex: {fileID: 2800000, guid: ae6ef7b0db9bf954eae518e51354095d, type: 3}
+--- !u!114 &2013701625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013701621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78af1e774da150646b51de0b11b16082, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scale: 1
+  bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+--- !u!114 &2013701626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013701621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72120e16a66e0aa48be26d79859cb6b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 5984981372157914734, guid: b5fa07066b0ac1f4cb430acf67cb9aef, type: 3}
+  shotCooldown: 0.25
 --- !u!1 &2037665673
 GameObject:
   m_ObjectHideFlags: 0

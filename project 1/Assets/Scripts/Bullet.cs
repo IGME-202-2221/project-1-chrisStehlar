@@ -6,22 +6,35 @@ public class Bullet : MonoBehaviour
 {
     // FIELDS
 
-    public Vector2 direction;
-    public float speed;
+    //public Vector2 direction = Vector2.right;
+    public float speed = 1f;
 
     // MONO
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(this.GetComponent<AABBCollider>())
+        {
+            this.GetComponent<AABBCollider>().OnIntersect += TryToDamage;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        this.transform.position += new Vector3(direction.x, direction.y, 0).normalized * speed * Time.fixedDeltaTime;
+        this.transform.position += new Vector3(transform.right.x, transform.right.y, 0).normalized * speed * Time.fixedDeltaTime;
     }
 
     // METHODS
+
+    private void TryToDamage(AABBCollider target)
+    {
+        if(!target.GetComponent<PlayerController>())
+        {
+            Debug.Log("just shot " + target);
+            Destroy(this.gameObject);
+        }
+        
+    }
 }
