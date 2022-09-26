@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f115e3c335d782f4184b078b637fb520, type: 3}
+  m_Name: shotgun_shoot
+  m_EditorClassIdentifier: 
+  actionName: shoot
+  baseSprite: {fileID: 21300000, guid: c522edf733bc3224ba3ab3312a5131a0, type: 3}
+  frames:
+  - sprite: {fileID: 21300000, guid: 43947c72c59a26e4ab284092de78cda5, type: 3}
+    duration: 0.03
+  - sprite: {fileID: 21300000, guid: 86c4908949c93b14a8279e58b177e9e8, type: 3}
+    duration: 0.03
+  - sprite: {fileID: 21300000, guid: 3dcaedf783f590e448febb3f943b6cf1, type: 3}
+    duration: 0.03
+  - sprite: {fileID: 21300000, guid: 1eecb81a886288d4e854e5ab3a3e18d3, type: 3}
+    duration: 0.03
+  - sprite: {fileID: 21300000, guid: e23afb9556f5a8344951b2e07463bf8b, type: 3}
+    duration: 0.1
+  - sprite: {fileID: 21300000, guid: 4ebc2288e39eb504aa826708011acdcd, type: 3}
+    duration: 0.1
+  - sprite: {fileID: 21300000, guid: b91b81e991e365145839f85b604b0118, type: 3}
+    duration: 0.1
+  - sprite: {fileID: 21300000, guid: 325dcc1e7735f3041b37e9c740b6915d, type: 3}
+    duration: 0.1

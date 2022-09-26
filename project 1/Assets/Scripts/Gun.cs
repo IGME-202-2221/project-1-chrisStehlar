@@ -47,6 +47,13 @@ public class Gun : MonoBehaviour
             }
 
             lastShotTime = Time.time;
+
+            // handle other scripts
+
+            if(this.GetComponent<AnimActionPlayer>())
+            {
+                this.GetComponent<AnimActionPlayer>().PlayAction("shoot");
+            }
         }
     }
 

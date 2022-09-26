@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4402845906238390410}
   - component: {fileID: 4402845906238390411}
   - component: {fileID: 4402845906238390516}
+  - component: {fileID: 2989769150445054093}
   m_Layer: 0
   m_Name: shotgun
   m_TagString: Untagged
@@ -100,3 +101,17 @@ MonoBehaviour:
   shotCount: 3
   offset: {x: -0.15, y: 0}
   shotAngle: 20
+--- !u!114 &2989769150445054093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4402845906238390517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59eb21681c7b8c24caf4e5179d2c9e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animactions:
+  - {fileID: 11400000, guid: 0404dbf445aff464db042b230358f15f, type: 2}
