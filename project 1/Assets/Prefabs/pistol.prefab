@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8234896887793294180}
   - component: {fileID: 8234896887793294181}
   - component: {fileID: 8234896887793294186}
+  - component: {fileID: 3421034844956001642}
   m_Layer: 0
   m_Name: pistol
   m_TagString: Untagged
@@ -99,3 +100,18 @@ MonoBehaviour:
   shotCooldown: 0.15
   shotCount: 1
   offset: {x: 0.28, y: 0}
+  shotAngle: 0
+--- !u!114 &3421034844956001642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8234896887793294187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59eb21681c7b8c24caf4e5179d2c9e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animactions:
+  - {fileID: 11400000, guid: 7163f63a0f14bba4aa377f35389e78af, type: 2}
