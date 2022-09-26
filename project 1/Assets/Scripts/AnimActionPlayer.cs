@@ -8,6 +8,8 @@ public class AnimActionPlayer : MonoBehaviour
 
     public AnimAction[] animactions;
 
+    private AnimAction playingAnimaction = null;
+
     // MONO
 
     // Start is called before the first frame update
@@ -27,23 +29,40 @@ public class AnimActionPlayer : MonoBehaviour
 
     // METHODS
 
-    public void PlayAction(string actionName)
+    public void StopAnimaction(string actionName)
     {
-        AnimAction actionToPlay = null;
-        foreach(AnimAction animaction in animactions)
+        if(playingAnimaction != null)
         {
-            if(animaction.actionName == actionName) // name and actionName !=
+            if(playingAnimaction.actionName == actionName)
             {
-                actionToPlay = animaction;
+                GetComponent<SpriteRenderer>().sprite = playingAnimaction.baseSprite;
+                playingAnimaction = null;
             }
         }
 
-        if(actionToPlay == null)
-        {
-            Debug.LogError("No animaction with name '" + actionName + "'");
-        }
+    }
 
-        StartCoroutine(PlayAnimaction(actionToPlay));
+    public void PlayAction(string actionName)
+    {
+        if(playingAnimaction == null)
+        {
+            AnimAction actionToPlay = null;
+            foreach(AnimAction animaction in animactions)
+            {
+                if(animaction.actionName == actionName) // name and actionName !=
+                {
+                    actionToPlay = animaction;
+                }
+            }
+
+            if(actionToPlay == null)
+            {
+                Debug.LogError("No animaction with name '" + actionName + "'");
+            }
+
+            playingAnimaction = actionToPlay;
+            StartCoroutine(PlayAnimaction(actionToPlay));
+        }
 
     }
 
@@ -53,10 +72,20 @@ public class AnimActionPlayer : MonoBehaviour
 
         for(int i = 0; i < animaction.frames.Length; i++)
         {
-            renderer.sprite = animaction.frames[i].sprite;
-            yield return new WaitForSeconds(animaction.frames[i].duration);
+            if(playingAnimaction != null)
+            {
+                renderer.sprite = animaction.frames[i].sprite;
+                yield return new WaitForSeconds(animaction.frames[i].duration);
+            }
+            else
+            {
+                renderer.sprite = animaction.baseSprite;
+                break;
+            }
+            
         }
         
         renderer.sprite = animaction.baseSprite;
+        playingAnimaction = null;
     }
 }

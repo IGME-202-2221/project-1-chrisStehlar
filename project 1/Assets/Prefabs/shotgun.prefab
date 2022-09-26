@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 5984981372157914734, guid: b5fa07066b0ac1f4cb430acf67cb9aef, type: 3}
-  shotCooldown: 0.8
+  shotCooldown: 0.6
   shotCount: 3
   offset: {x: -0.15, y: 0}
   shotAngle: 20

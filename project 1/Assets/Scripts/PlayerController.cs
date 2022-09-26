@@ -103,5 +103,19 @@ public class PlayerController : MonoBehaviour
 
         // apply the movement
         this.transform.position += new Vector3(velocity.x, velocity.y, 0).normalized * speed * Time.deltaTime;
+
+        // play walk animation
+        if(this.GetComponent<AnimActionPlayer>())
+        {
+            if(velocity.sqrMagnitude > 0)
+            {
+                this.GetComponent<AnimActionPlayer>().PlayAction("walk");
+            }
+            else
+            {
+                this.GetComponent<AnimActionPlayer>().StopAnimaction("walk");
+            }
+        }
+        
     }
 }
