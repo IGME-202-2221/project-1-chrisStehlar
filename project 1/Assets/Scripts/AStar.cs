@@ -14,11 +14,12 @@ public class AStar : MonoBehaviour
     private Tilemap tilemap;
     public TileBase[] pathableTiles;
     private HashSet<TileBase> hashPathables;
+    public float minDistanceToTarget;
 
     // for the PathTo function
     private HashSet<AStarNode> openCells = new HashSet<AStarNode>();
     private HashSet<AStarNode> closedCells = new HashSet<AStarNode>();
-    private Dictionary<Vector2, AStarNode> createdCells = new Dictionary<Vector2, AStarNode>();
+    private Dictionary<Vector3Int, AStarNode> createdCells = new Dictionary<Vector3Int, AStarNode>(); // convert form world to cell
 
     private AStarNode startNode;
     private Vector2 endPos;
@@ -38,6 +39,7 @@ public class AStar : MonoBehaviour
             hashPathables.Add(tile);
         }
 
+        path = new Stack<Vector2>();
         tilemap = grid.GetComponentInChildren<Tilemap>(); // could definitely cause problems if the tilemap is passed by value
     }
 
@@ -59,6 +61,7 @@ public class AStar : MonoBehaviour
         
         if(IsValidTarget(targetPos))
         {
+            // pre set up
             endPos = targetPos;
 
             createdCells.Clear();
@@ -66,41 +69,110 @@ public class AStar : MonoBehaviour
             closedCells.Clear();
 
             // commence the pathfinding algorithm
-            // Vector3 startCell = grid.CellToWorld(grid.WorldToCell(targetPos)) + new Vector3(grid.cellSize.x / 2, grid.cellSize.y / 2, 0);
-            // Vector3 currentCell = startCell;
-            // openCells.Add(startCell);
 
             startNode = new AStarNode(grid.CellToWorld(grid.WorldToCell(this.transform.position)) + new Vector3(grid.cellSize.x / 2, grid.cellSize.y / 2, 0));
-            createdCells.Add(startNode.position, startNode);
+            createdCells.Add(grid.WorldToCell(startNode.position), startNode);
             openCells.Add(startNode);
 
-            AStarNode currentNode = startNode;
-
-            CloseCell(currentNode);
-            OpenSurroundingCells(currentNode);
-            currentNode = GetLowestFCost();
-
-            CloseCell(currentNode);
-            OpenSurroundingCells(currentNode);
-            currentNode = GetLowestFCost();
-
-            foreach(AStarNode node in openCells)
+            // a* pathing algorithm as found here: https://youtu.be/-L-WgKMFuhE?t=461
+            for(int i = 0; i < 100; i++)
             {
-                Debug.DrawRay(node.position, Vector2.up * 0.25f, Color.green, 10f);
+                AStarNode currentNode = GetLowestFCost();
+                CloseCell(currentNode);
+
+                // check if it reached the target
+                if(Vector3.Distance(currentNode.position, targetPos) < minDistanceToTarget)
+                {
+                    Debug.Log("path found");
+                    path.Clear(); // remove the old path
+                    StackPath(currentNode); // save the new one
+                    DrawPath(currentNode);
+                    break;
+                }
+
+
+                // check the neighbor cells
+                //  5   6   7
+                //  4   x   0
+                //  3   2   1
+                
+                Vector2[] positionsToCheck = {
+                    new Vector2(currentNode.position.x + (grid.cellSize.x), currentNode.position.y), // right
+                    new Vector2(currentNode.position.x + (grid.cellSize.x), currentNode.position.y - (grid.cellSize.y)), // bot right
+                    new Vector2(currentNode.position.x, currentNode.position.y - (grid.cellSize.y)),
+                    new Vector2(currentNode.position.x - (grid.cellSize.x), currentNode.position.y - (grid.cellSize.y)),
+                    new Vector2(currentNode.position.x - (grid.cellSize.x), currentNode.position.y),
+                    new Vector2(currentNode.position.x - (grid.cellSize.x), currentNode.position.y + (grid.cellSize.y)),
+                    new Vector2(currentNode.position.x, currentNode.position.y + (grid.cellSize.y)),  // top
+                    new Vector2(currentNode.position.x + (grid.cellSize.x), currentNode.position.y + (grid.cellSize.y)), // top right
+                };
+
+                for(int c = 0; c < positionsToCheck.Length; c++)
+                {
+                    // as long as the tile is traversable and not closed (but it has to exist too)
+                    if(IsValidTarget(positionsToCheck[c])) //&& (createdCells.ContainsKey(grid.WorldToCell(positionsToCheck[c])) || !closedCells.Contains(createdCells[grid.WorldToCell(positionsToCheck[c])])))
+                    {
+                        AStarNode nodeToCheck;
+
+                        // make the new node if it doesnt exist
+                        if(!createdCells.ContainsKey(grid.WorldToCell(positionsToCheck[c])))
+                        {
+                            nodeToCheck = new AStarNode(positionsToCheck[c], currentNode, targetPos); // the current node is the start node
+                            createdCells.Add(grid.WorldToCell(nodeToCheck.position), nodeToCheck);
+                            openCells.Add(nodeToCheck);
+                        }
+                        // else update the node to reflect a better path
+                        else
+                        {
+                            nodeToCheck = createdCells[grid.WorldToCell(positionsToCheck[c])];
+
+                            // if the path would be shorter with the current node as the parent, then switch the parent
+                            if(nodeToCheck.g_cost > (nodeToCheck.g_cost + Vector3.Distance(currentNode.position, nodeToCheck.position)) && closedCells.Contains(nodeToCheck.parent))
+                            {
+                                nodeToCheck.UpdateGCost(currentNode);
+                                //Debug.Log("updated node");
+                            }
+                            
+                        }  
+
+                    }
+                }
+
             }
+            
+            // foreach(AStarNode node in openCells)
+            // {
+            //     Debug.DrawRay(node.position, Vector2.up * 0.25f, Color.green, 10f);
+            // }
 
-            foreach(AStarNode node in closedCells)
-            {
-                Debug.DrawRay(node.position, Vector2.up * 0.25f, Color.red, 10f);
-            }
-
-            Debug.DrawRay(GetLowestFCost().position, Vector2.up * 0.3f, Color.cyan, 10f);
-
+            // foreach(AStarNode node in closedCells)
+            // {
+            //     Debug.DrawRay(node.position, Vector2.up * 0.25f, Color.red, 10f);
+            // }
 
         }
         else
         {
-            Debug.Log("Target out of range.");
+            Debug.Log("Target in invalid location.");
+        }
+    }
+
+    private void StackPath(AStarNode node)
+    {
+        if(node.parent != null)
+        {
+            path.Push(node.position);
+            StackPath(node.parent);
+        }
+    }
+
+
+    private void DrawPath(AStarNode node)
+    {
+        if(node.parent != null)
+        {
+            Debug.DrawLine(node.position, node.parent.position, Color.cyan, 10f);
+            DrawPath(node.parent);
         }
     }
 
@@ -110,6 +182,8 @@ public class AStar : MonoBehaviour
         openCells.Remove(cell);
     }
 
+    // create cells around a source cell
+    // this is useful for making new cells only when needed, instead of pregenerating too many
     private void OpenSurroundingCells(AStarNode source)
     {
         Vector2[] positionsToCheck = {
@@ -128,21 +202,24 @@ public class AStar : MonoBehaviour
         //  4   x   0
         //  3   2   1
 
+        Debug.Log("is the source cell indexable? " + createdCells.ContainsKey(grid.WorldToCell(source.position)));
+
         for(int i = 0; i < positionsToCheck.Length; i++)
         {
-            if(!createdCells.ContainsKey(positionsToCheck[i]))
+            if(!createdCells.ContainsKey(grid.WorldToCell(positionsToCheck[i])))
             {
-
                 // if there is a pathable tile there then open it up
                 if(IsValidTarget(positionsToCheck[i]))
                 {
                     AStarNode nodeToAdd = new AStarNode(positionsToCheck[i], startNode, endPos);
+                    createdCells.Add(grid.WorldToCell(nodeToAdd.position), nodeToAdd);
                     openCells.Add(nodeToAdd);
+                    
                 }
             }
             else
             {
-                Debug.Log("already a node there");
+                Debug.Log("already a node there: " + positionsToCheck[i]);
             }
         }
 
@@ -210,9 +287,9 @@ public class AStarNode
     public AStarNode(Vector3 position, AStarNode startNode, Vector2 targetPos)
     {
         this.position = position;
-        parent = null;
+        parent = startNode;
 
-        g_cost = Vector3.Distance(this.position, startNode.position);
+        g_cost = Vector3.Distance(this.position, startNode.position) + startNode.g_cost;
         h_cost = Vector3.Distance(this.position, targetPos);
         f_cost = h_cost + g_cost;
     }
@@ -230,5 +307,12 @@ public class AStarNode
     }
 
     // METHODS
+
+    public void UpdateGCost(AStarNode newStartNode)
+    {
+        parent = newStartNode;
+        g_cost = Vector3.Distance(this.position, newStartNode.position) + newStartNode.g_cost;
+        f_cost = h_cost + g_cost;
+    }
 }
 
