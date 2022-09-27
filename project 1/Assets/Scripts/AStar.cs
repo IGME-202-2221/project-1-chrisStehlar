@@ -10,10 +10,10 @@ public class AStar : MonoBehaviour
     // FIELDS
 
     // meta info that shouldnt change
-    public Grid grid; // the pathable and none pathable tiles
+    public Grid grid;
     private Tilemap tilemap;
-    public TileBase[] pathableTiles;
-    private HashSet<TileBase> hashPathables;
+    public TileBase[] pathableTiles;    // a public facing list of pathable tiles
+    private HashSet<TileBase> hashPathables;    // a private list of the pathable tiles used to quickly retrieve them with hashing
     public float minDistanceToTarget;
 
     // for the PathTo function
@@ -21,10 +21,9 @@ public class AStar : MonoBehaviour
     private HashSet<AStarNode> closedCells = new HashSet<AStarNode>();
     private Dictionary<Vector3Int, AStarNode> createdCells = new Dictionary<Vector3Int, AStarNode>(); // convert form world to cell
 
-    private AStarNode startNode;
-    private Vector2 endPos;
     private Stack<Vector2> path;
 
+    // remove once enemy movement is good
     public GameObject testObj;
 
     // MONO
@@ -62,7 +61,6 @@ public class AStar : MonoBehaviour
         if(IsValidTarget(targetPos))
         {
             // pre set up
-            endPos = targetPos;
 
             createdCells.Clear();
             openCells.Clear();
@@ -70,7 +68,7 @@ public class AStar : MonoBehaviour
 
             // commence the pathfinding algorithm
 
-            startNode = new AStarNode(grid.CellToWorld(grid.WorldToCell(this.transform.position)) + new Vector3(grid.cellSize.x / 2, grid.cellSize.y / 2, 0));
+            AStarNode startNode = new AStarNode(grid.CellToWorld(grid.WorldToCell(this.transform.position)) + new Vector3(grid.cellSize.x / 2, grid.cellSize.y / 2, 0));
             createdCells.Add(grid.WorldToCell(startNode.position), startNode);
             openCells.Add(startNode);
 
@@ -139,16 +137,6 @@ public class AStar : MonoBehaviour
                 }
 
             }
-            
-            // foreach(AStarNode node in openCells)
-            // {
-            //     Debug.DrawRay(node.position, Vector2.up * 0.25f, Color.green, 10f);
-            // }
-
-            // foreach(AStarNode node in closedCells)
-            // {
-            //     Debug.DrawRay(node.position, Vector2.up * 0.25f, Color.red, 10f);
-            // }
 
         }
         else
@@ -157,6 +145,7 @@ public class AStar : MonoBehaviour
         }
     }
 
+    // called when the path is found, adds all the locations into a stack
     private void StackPath(AStarNode node)
     {
         if(node.parent != null)
@@ -166,7 +155,7 @@ public class AStar : MonoBehaviour
         }
     }
 
-
+    // a debug method to draw the path on a blue line, called when the path is finished
     private void DrawPath(AStarNode node)
     {
         if(node.parent != null)
@@ -182,52 +171,9 @@ public class AStar : MonoBehaviour
         openCells.Remove(cell);
     }
 
-    // create cells around a source cell
-    // this is useful for making new cells only when needed, instead of pregenerating too many
-    private void OpenSurroundingCells(AStarNode source)
-    {
-        Vector2[] positionsToCheck = {
-            new Vector2(source.position.x + (grid.cellSize.x), source.position.y), // right
-            new Vector2(source.position.x + (grid.cellSize.x), source.position.y - (grid.cellSize.y)), // bot right
-            new Vector2(source.position.x, source.position.y - (grid.cellSize.y)),
-            new Vector2(source.position.x - (grid.cellSize.x), source.position.y - (grid.cellSize.y)),
-            new Vector2(source.position.x - (grid.cellSize.x), source.position.y),
-            new Vector2(source.position.x - (grid.cellSize.x), source.position.y + (grid.cellSize.y)),
-            new Vector2(source.position.x, source.position.y + (grid.cellSize.y)),  // top
-            new Vector2(source.position.x + (grid.cellSize.x), source.position.y + (grid.cellSize.y)), // top right
-        };
-
-        // check the surrounding cells adjacent to the source, see if they exist
-        //  5   6   7
-        //  4   x   0
-        //  3   2   1
-
-        Debug.Log("is the source cell indexable? " + createdCells.ContainsKey(grid.WorldToCell(source.position)));
-
-        for(int i = 0; i < positionsToCheck.Length; i++)
-        {
-            if(!createdCells.ContainsKey(grid.WorldToCell(positionsToCheck[i])))
-            {
-                // if there is a pathable tile there then open it up
-                if(IsValidTarget(positionsToCheck[i]))
-                {
-                    AStarNode nodeToAdd = new AStarNode(positionsToCheck[i], startNode, endPos);
-                    createdCells.Add(grid.WorldToCell(nodeToAdd.position), nodeToAdd);
-                    openCells.Add(nodeToAdd);
-                    
-                }
-            }
-            else
-            {
-                Debug.Log("already a node there: " + positionsToCheck[i]);
-            }
-        }
-
-    }
-
+    // a search algorithm that finds the lowest f_cost in the open nodes
     private AStarNode GetLowestFCost()
     {
-
         AStarNode lowestCost = new AStarNode(float.MaxValue); // fake node with max f_cost
 
         foreach(AStarNode node in openCells)
@@ -241,11 +187,10 @@ public class AStar : MonoBehaviour
         return lowestCost;
     }
 
+    // checks if the location falls on a walkable tile
     public bool IsValidTarget(Vector2 target)
     {
-        Vector3Int intTarget = grid.WorldToCell(target); //new Vector3Int(Mathf.RoundToInt(target.x), Mathf.RoundToInt(target.y), 0);
-        //Vector3 cellCenter = grid.CellToWorld(intTarget) + new Vector3(grid.cellSize.x / 2, grid.cellSize.y / 2, 0);
-        //Debug.DrawRay(cellCenter, Vector2.up, Color.red, 10f); // from world to cell to world again will place it at the bottom left of the tile
+        Vector3Int intTarget = grid.WorldToCell(target);
 
         if(hashPathables.Contains(tilemap.GetTile(intTarget)))
         {
@@ -255,18 +200,18 @@ public class AStar : MonoBehaviour
         {
             return false;
         }
-        //Debug.Log("Is " + tilemap.GetTile(intTarget) + " valid?" + hashPathables.Contains(tilemap.GetTile(intTarget)));
     }
 
 }
 
+// a helper class to handle the internal data for different astar nodes
 public class AStarNode
 {
     // FIELDS
 
     public AStarNode parent;
     public Vector3 position;
-    public float g_cost; // distance from start node
+    public float g_cost; // distance from start node (via it's parent's path back to the start)
     public float h_cost; // distance from target node
     public float f_cost; // sum of g and h cost
 
@@ -294,7 +239,7 @@ public class AStarNode
         f_cost = h_cost + g_cost;
     }
 
-    // stand in node for trying to get another node with a lower f_cost
+    // stand in node for trying to get another node with a lower f_cost, used in FindLowestFCost()
     // BAD PRACTICE find another solution later
     public AStarNode(float f_cost)
     {
@@ -308,6 +253,7 @@ public class AStarNode
 
     // METHODS
 
+    // used to reparent this node to the newStartNode which likely has a shorter path
     public void UpdateGCost(AStarNode newStartNode)
     {
         parent = newStartNode;
