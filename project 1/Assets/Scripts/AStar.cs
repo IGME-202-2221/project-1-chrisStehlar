@@ -15,6 +15,7 @@ public class AStar : MonoBehaviour
     public TileBase[] pathableTiles;    // a public facing list of pathable tiles
     private HashSet<TileBase> hashPathables;    // a private list of the pathable tiles used to quickly retrieve them with hashing
     public float minDistanceToTarget;
+    public int maxPathChecks;
 
     // for the PathTo function
     private HashSet<AStarNode> openCells = new HashSet<AStarNode>();
@@ -23,9 +24,6 @@ public class AStar : MonoBehaviour
 
     [HideInInspector]
     public Stack<Vector2> path;
-
-    // remove once enemy movement is good
-    public GameObject testObj;
 
     // MONO
 
@@ -46,12 +44,7 @@ public class AStar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.J))
-        {
-            //Debug.Log("Got that tile im lookin for? " + hashPathables.Contains(testTile));
-            //IsValidTarget(testObj.transform.position);
-            PathTo(testObj.transform.position);
-        }
+        
     }
 
     // METHODS
@@ -74,7 +67,7 @@ public class AStar : MonoBehaviour
             openCells.Add(startNode);
 
             // a* pathing algorithm as found here: https://youtu.be/-L-WgKMFuhE?t=461 (with some tweaks)
-            for(int i = 0; i < 100; i++)
+            for(int i = 0; i < maxPathChecks; i++)
             {
                 AStarNode currentNode = GetLowestFCost();
                 CloseCell(currentNode);

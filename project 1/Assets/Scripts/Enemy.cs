@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     // FIELDS
 
+    [HideInInspector]
     public GameObject target; // what they are trying to attack
     public float health;
     public float speed;
@@ -23,6 +24,7 @@ public class Enemy : MonoBehaviour
         astar = GetComponent<AStar>();
         lastTimeTargetChecked = Time.time- targetCheckRate;
 
+        target = GameObject.Find("player");
     }
 
     // Update is called once per frame
