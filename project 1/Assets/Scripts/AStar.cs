@@ -82,7 +82,6 @@ public class AStar : MonoBehaviour
                 // check if it reached the target
                 if(Vector3.Distance(currentNode.position, targetPos) < minDistanceToTarget)
                 {
-                    Debug.Log("path found");
                     path.Clear(); // remove the old path
                     StackPath(currentNode); // save the new one
                     DrawPath(currentNode);

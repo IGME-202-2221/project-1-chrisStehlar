@@ -7,10 +7,13 @@ public class Enemy : MonoBehaviour
     // FIELDS
 
     public GameObject target; // what they are trying to attack
+    public float health;
     public float speed;
     private Vector2 velocity;
     private AStar astar;
     private bool hasDestination = false;
+    public float targetCheckRate;
+    private float lastTimeTargetChecked; // how many seconds before next check
 
     // MONO
 
@@ -18,14 +21,19 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         astar = GetComponent<AStar>();
+        lastTimeTargetChecked = Time.time- targetCheckRate;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.J))
+
+        // wait a little while before checking for the enemy position again as to not overburden
+        // the cpu with thousands of a* calls
+        if(Time.time - lastTimeTargetChecked > targetCheckRate)
         {
             SetDestination(target.transform.position);
+            lastTimeTargetChecked = Time.time;
         }
         
         TryMoveOnPath();
@@ -36,7 +44,8 @@ public class Enemy : MonoBehaviour
     // the private method that handles the enemy's velocity
     private void TryMoveOnPath()
     {
-        if(hasDestination)
+        
+        if(hasDestination && astar.path.Count > 0)
         {
             // if at a path node
             if(Vector2.Distance(this.transform.position, astar.path.Peek()) < 0.1f)
@@ -48,7 +57,7 @@ public class Enemy : MonoBehaviour
                 else
                 {
                     hasDestination = false;
-                    Debug.Log("reached destination");
+                    //Debug.Log("reached destination");
                 }
                 
             }
@@ -56,11 +65,14 @@ public class Enemy : MonoBehaviour
             else
             {
                 velocity = astar.path.Peek() - new Vector2(this.transform.position.x, this.transform.position.y);
+
+                this.GetComponent<AnimActionPlayer>().PlayAction("walk");
             }
         }
         else
         {
             velocity = Vector2.zero;
+            this.GetComponent<AnimActionPlayer>().StopAnimaction("walk");
         }
 
         this.transform.position += new Vector3(velocity.x, velocity.y, 0).normalized * speed * Time.deltaTime;
@@ -74,6 +86,9 @@ public class Enemy : MonoBehaviour
         // pathfind the position
 
         astar.PathTo(position);
+        
+        // adjust sprite
+        GetComponent<SpriteRenderer>().flipX = position.x > this.transform.position.x;
     }
 
 }
