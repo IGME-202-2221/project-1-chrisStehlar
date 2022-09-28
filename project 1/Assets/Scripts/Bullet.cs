@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
     public float speed = 1f;
     public float timeToDespawn;
     private float timeSpawned;
+    public int damage;
 
     // MONO
 
@@ -44,6 +45,12 @@ public class Bullet : MonoBehaviour
         if(!target.GetComponent<PlayerController>() && !target.GetComponent<Bullet>())
         {
             Debug.Log("just shot " + target);
+
+            if(target.GetComponent<Enemy>())
+            {
+                target.GetComponent<Enemy>().TakeDamage(damage);
+            }
+
             Destroy(this.gameObject);
         }
         

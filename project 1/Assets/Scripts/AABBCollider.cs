@@ -38,17 +38,6 @@ public class AABBCollider : MonoBehaviour
 
         // check for collision
         CheckForCollisions();
-
-        // update behavior based on collision
-        // if(intersecting)
-        // {
-        //     GetComponentInParent<SpriteRenderer>().color = Color.red;
-        // }
-        // else
-        // {
-        //     GetComponentInParent<SpriteRenderer>().color = Color.white;
-        // }
-        // THIS WAS FOR TESTING, USE THE EVENT SYSTEM FROM NOW ON
         
     }
 

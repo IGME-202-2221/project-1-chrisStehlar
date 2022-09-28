@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     {
         astar = GetComponent<AStar>();
         lastTimeTargetChecked = Time.time- targetCheckRate;
+
     }
 
     // Update is called once per frame
@@ -40,6 +41,16 @@ public class Enemy : MonoBehaviour
     }
 
     // METHODS
+
+    public void TakeDamage(int howMuch)
+    {
+        health -= howMuch;
+
+        if(health < 1)
+        {
+            Debug.Log("I DIED");
+        }
+    }
 
     // the private method that handles the enemy's velocity
     private void TryMoveOnPath()

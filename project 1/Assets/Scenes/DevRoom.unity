@@ -4077,7 +4077,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   cursorTex: {fileID: 2800000, guid: 1de7fc8767fe6c44a97a64db2c98d53d, type: 3}
-  weapon: {fileID: 4402845906238390516, guid: 0d8446f3aab34c541bdafdd1c4ebc616, type: 3}
+  weapon: {fileID: 8234896887793294186, guid: 49e8b90e7aa3f3a44b37eaa6afd46370, type: 3}
 --- !u!114 &2013701625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4121,6 +4121,7 @@ GameObject:
   - component: {fileID: 2037665677}
   - component: {fileID: 2037665676}
   - component: {fileID: 2037665678}
+  - component: {fileID: 2037665679}
   m_Layer: 0
   m_Name: fleshBeast
   m_TagString: Untagged
@@ -4225,6 +4226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 2013701621}
+  health: 3
   speed: 1
   targetCheckRate: 1
 --- !u!114 &2037665678
@@ -4241,3 +4243,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animactions:
   - {fileID: 11400000, guid: 57482eba85d16564980af6f30cdda8f9, type: 2}
+--- !u!114 &2037665679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037665673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78af1e774da150646b51de0b11b16082, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scale: 1
+  bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
