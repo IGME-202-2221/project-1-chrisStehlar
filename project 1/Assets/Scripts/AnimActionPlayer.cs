@@ -26,12 +26,45 @@ public class AnimActionPlayer : MonoBehaviour
 
     // METHODS
 
+    public float GetActionLength(string actionName)
+    {
+        AnimAction actionToCheck = null;
+        foreach(AnimAction animaction in animactions)
+        {
+            if(animaction.actionName == actionName)
+            {
+                actionToCheck = animaction;
+                break;
+            }
+        }
+
+        float duration = 0;
+        foreach(Frame frame in actionToCheck.frames)
+        {
+            duration += frame.duration;
+        }
+
+        return duration;
+    }
+
+    public void StopAnimaction()
+    {
+        if(playingAnimaction != null)
+        {
+            StopAllCoroutines();
+            GetComponent<SpriteRenderer>().sprite = playingAnimaction.baseSprite;
+            playingAnimaction = null;
+            
+        }
+    }
+
     public void StopAnimaction(string actionName)
     {
         if(playingAnimaction != null)
         {
             if(playingAnimaction.actionName == actionName)
             {
+                StopAllCoroutines();
                 GetComponent<SpriteRenderer>().sprite = playingAnimaction.baseSprite;
                 playingAnimaction = null;
             }
@@ -84,5 +117,6 @@ public class AnimActionPlayer : MonoBehaviour
         
         renderer.sprite = animaction.baseSprite;
         playingAnimaction = null;
+        //Debug.Log("played " + animaction.actionName + " through");
     }
 }

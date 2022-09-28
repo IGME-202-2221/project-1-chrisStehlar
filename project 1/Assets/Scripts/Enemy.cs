@@ -28,16 +28,19 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        // wait a little while before checking for the enemy position again as to not overburden
-        // the cpu with thousands of a* calls
-        if(Time.time - lastTimeTargetChecked > targetCheckRate)
+        if(health > 0)
         {
-            SetDestination(target.transform.position);
-            lastTimeTargetChecked = Time.time;
+            // wait a little while before checking for the enemy position again as to not overburden
+            // the cpu with thousands of a* calls
+            if(Time.time - lastTimeTargetChecked > targetCheckRate)
+            {
+                SetDestination(target.transform.position);
+                lastTimeTargetChecked = Time.time;
+            }
+            
+            TryMoveOnPath();
         }
-        
-        TryMoveOnPath();
+
     }
 
     // METHODS
@@ -48,8 +51,13 @@ public class Enemy : MonoBehaviour
 
         if(health < 1)
         {
-            Debug.Log("I DIED");
+            this.GetComponent<AnimActionPlayer>().StopAnimaction(); // stop whatever was happening
+            this.GetComponent<AnimActionPlayer>().PlayAction("die");    // play death animaction
+            Destroy(this.gameObject, this.GetComponent<AnimActionPlayer>().GetActionLength("die"));
+
+            Destroy(this.GetComponent<AABBCollider>()); // delete the collider because collisions check even when disabled as of right now
         }
+        
     }
 
     // the private method that handles the enemy's velocity
