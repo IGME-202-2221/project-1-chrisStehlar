@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f115e3c335d782f4184b078b637fb520, type: 3}
+  m_Name: zombie_walk
+  m_EditorClassIdentifier: 
+  actionName: walk
+  baseSprite: {fileID: 21300000, guid: 294b7f7f18bcce54cae0f02316d851f3, type: 3}
+  frames:
+  - sprite: {fileID: 21300000, guid: e3d3cacb3a118b447b990a458ff5cf89, type: 3}
+    duration: 0.15
+  - sprite: {fileID: 21300000, guid: 9cc826a920f893545b3e86407a3a2abc, type: 3}
+    duration: 0.15
+  - sprite: {fileID: 21300000, guid: a7bff3e93ee128f448ef3528e047d659, type: 3}
+    duration: 0.15
+  - sprite: {fileID: 21300000, guid: 08111843140770744b0f3cff61d3833e, type: 3}
+    duration: 0.15
+  - sprite: {fileID: 21300000, guid: e4c8a0a3ebf606d4b899dc44646329fa, type: 3}
+    duration: 0.15
+  - sprite: {fileID: 21300000, guid: 56bffe1b2ec28384eb182dc74c4c9477, type: 3}
+    duration: 0.15

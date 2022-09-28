@@ -24,4 +24,4 @@ MonoBehaviour:
   - sprite: {fileID: 21300000, guid: 5128a364f2baccd46a7f525c308d4611, type: 3}
     duration: 0.1
   - sprite: {fileID: 21300000, guid: 60bd9e063d18f3a4480d270ab3be25f7, type: 3}
-    duration: 2
+    duration: 1.5

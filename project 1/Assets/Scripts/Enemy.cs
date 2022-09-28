@@ -57,6 +57,8 @@ public class Enemy : MonoBehaviour
             this.GetComponent<AnimActionPlayer>().PlayAction("die");    // play death animaction
             Destroy(this.gameObject, this.GetComponent<AnimActionPlayer>().GetActionLength("die"));
 
+            this.GetComponent<SpriteRenderer>().sortingOrder = 0; // go behind the alive creatures
+
             Destroy(this.GetComponent<AABBCollider>()); // delete the collider because collisions check even when disabled as of right now
         }
         
