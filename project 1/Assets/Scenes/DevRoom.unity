@@ -4118,6 +4118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2037665675}
   - component: {fileID: 2037665674}
+  - component: {fileID: 2037665677}
   - component: {fileID: 2037665676}
   m_Layer: 0
   m_Name: fleshBeast
@@ -4210,3 +4211,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e10e79c355b7e78458b4464510d42baa, type: 2}
   minDistanceToTarget: 1
   testObj: {fileID: 2013701621}
+--- !u!114 &2037665677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037665673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 968c67740fd04314093bd57c84d909a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 2013701621}
+  speed: 1

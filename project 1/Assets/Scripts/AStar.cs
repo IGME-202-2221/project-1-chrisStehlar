@@ -21,7 +21,8 @@ public class AStar : MonoBehaviour
     private HashSet<AStarNode> closedCells = new HashSet<AStarNode>();
     private Dictionary<Vector3Int, AStarNode> createdCells = new Dictionary<Vector3Int, AStarNode>(); // convert form world to cell
 
-    private Stack<Vector2> path;
+    [HideInInspector]
+    public Stack<Vector2> path;
 
     // remove once enemy movement is good
     public GameObject testObj;
@@ -72,7 +73,7 @@ public class AStar : MonoBehaviour
             createdCells.Add(grid.WorldToCell(startNode.position), startNode);
             openCells.Add(startNode);
 
-            // a* pathing algorithm as found here: https://youtu.be/-L-WgKMFuhE?t=461
+            // a* pathing algorithm as found here: https://youtu.be/-L-WgKMFuhE?t=461 (with some tweaks)
             for(int i = 0; i < 100; i++)
             {
                 AStarNode currentNode = GetLowestFCost();
@@ -130,14 +131,10 @@ public class AStar : MonoBehaviour
                                 nodeToCheck.UpdateGCost(currentNode);
                                 //Debug.Log("updated node");
                             }
-                            
-                        }  
-
+                        }
                     }
                 }
-
             }
-
         }
         else
         {
