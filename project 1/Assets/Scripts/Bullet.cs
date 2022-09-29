@@ -11,6 +11,7 @@ public class Bullet : MonoBehaviour
     public float timeToDespawn;
     private float timeSpawned;
     public int damage;
+    private bool impacted = false;
 
     // MONO
 
@@ -27,14 +28,21 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        // move forward constantly
-        this.transform.position += new Vector3(transform.right.x, transform.right.y, 0).normalized * speed * Time.deltaTime;
 
         // despawn if for some reason this bullet goes off into infinity
         if(Time.time - timeSpawned > timeToDespawn)
         {
             Destroy(this.gameObject);
         }
+
+        if(!impacted)
+        {
+            // move forward constantly
+            this.transform.position += new Vector3(transform.right.x, transform.right.y, 0).normalized * speed * Time.deltaTime;
+
+            this.GetComponent<AnimActionPlayer>().PlayAction("move");
+        }
+            
     }
 
 
@@ -42,7 +50,7 @@ public class Bullet : MonoBehaviour
 
     private void TryToDamage(AABBCollider target)
     {
-        if(!target.GetComponent<PlayerController>() && !target.GetComponent<Bullet>())
+        if(!impacted && !target.GetComponent<PlayerController>() && !target.GetComponent<Bullet>())
         {
             Debug.Log("just shot " + target);
 
@@ -51,7 +59,10 @@ public class Bullet : MonoBehaviour
                 target.GetComponent<Enemy>().TakeDamage(damage);
             }
 
-            Destroy(this.gameObject);
+            impacted = true;
+            Destroy(this.gameObject, this.GetComponent<AnimActionPlayer>().GetActionLength("impact"));
+            this.GetComponent<AnimActionPlayer>().StopAnimaction();
+            this.GetComponent<AnimActionPlayer>().PlayAction("impact");
         }
         
     }

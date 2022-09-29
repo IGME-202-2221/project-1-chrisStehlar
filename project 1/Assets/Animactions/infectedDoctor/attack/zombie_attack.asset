@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f115e3c335d782f4184b078b637fb520, type: 3}
+  m_Name: zombie_attack
+  m_EditorClassIdentifier: 
+  actionName: attack
+  baseSprite: {fileID: 21300000, guid: 294b7f7f18bcce54cae0f02316d851f3, type: 3}
+  frames:
+  - sprite: {fileID: 21300000, guid: 90b3b540ac7a0e64b9a6f845fd8b8815, type: 3}
+    duration: 0.2
+  - sprite: {fileID: 21300000, guid: a9a29850aeb5bd743b2f86b2fe9c3856, type: 3}
+    duration: 0.1
+  - sprite: {fileID: 21300000, guid: 4a92916e1b5394e47a095fa54dff7508, type: 3}
+    duration: 0.075
+  - sprite: {fileID: 21300000, guid: 5d4a945263873eb488a0445c2dc334d1, type: 3}
+    duration: 0.075
+  - sprite: {fileID: 21300000, guid: c8a658ab5119c7a46b41f049eebf9ea0, type: 3}
+    duration: 0.075
+  - sprite: {fileID: 21300000, guid: 76cca8fd96f5b3e44afc9c0d585504bd, type: 3}
+    duration: 0.15
+  - sprite: {fileID: 21300000, guid: 80bd360d20ac3944faf14e28757ccbe8, type: 3}
+    duration: 0.2
