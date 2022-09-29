@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f115e3c335d782f4184b078b637fb520, type: 3}
+  m_Name: fleshSlime_attack
+  m_EditorClassIdentifier: 
+  actionName: attack
+  baseSprite: {fileID: 21300000, guid: 11119aeb573eb0f4cbaf5274951a127c, type: 3}
+  frames:
+  - sprite: {fileID: 21300000, guid: f2cb4d8196dc7a04ab152135307c839b, type: 3}
+    duration: 0.2
+  - sprite: {fileID: 21300000, guid: 45050d770aa5f7b48b1abc185289dd83, type: 3}
+    duration: 0.15
+  - sprite: {fileID: 21300000, guid: 1c0542e93aec11f4ca3bc94c5a1a3c40, type: 3}
+    duration: 0.1
+  - sprite: {fileID: 21300000, guid: 04e61f2beaaccb34d92a59ec18274637, type: 3}
+    duration: 0.05
+  - sprite: {fileID: 21300000, guid: 3807d4bcf2fe7494a93c8a6bc99d4af2, type: 3}
+    duration: 0.1
+  - sprite: {fileID: 21300000, guid: db84890b35805d24bbc5a7d652c05aa5, type: 3}
+    duration: 0.15
+  - sprite: {fileID: 21300000, guid: 5df3f241237fb7742befda91391d9b1b, type: 3}
+    duration: 0.15
+  - sprite: {fileID: 21300000, guid: 1e528dc373921e54e9da6b6a7eeaf15d, type: 3}
+    duration: 0.15
+  - sprite: {fileID: 21300000, guid: dd7ee0031c9547d4a99b4bfb3299cd8c, type: 3}
+    duration: 0.15

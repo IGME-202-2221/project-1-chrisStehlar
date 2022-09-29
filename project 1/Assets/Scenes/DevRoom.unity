@@ -580,10 +580,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: fleshBeast
       objectReference: {fileID: 0}
-    - target: {fileID: 320038279073281282, guid: 5336cc586cef61840b3b361ddf617413, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5336cc586cef61840b3b361ddf617413, type: 3}
 --- !u!1001 &1351996721
@@ -667,7 +663,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1429006581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -819,7 +815,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1433339641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1464,7 +1460,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1972486811
 SpriteRenderer:
   m_ObjectHideFlags: 0

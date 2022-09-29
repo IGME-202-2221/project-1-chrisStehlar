@@ -15,6 +15,8 @@ public class Enemy : MonoBehaviour
     private bool hasDestination = false;
     public float targetCheckRate;
     private float lastTimeTargetChecked; // how many seconds before next check
+    private bool attacking = false;
+    private float timeStartedAttacking;
 
     // MONO
 
@@ -40,12 +42,44 @@ public class Enemy : MonoBehaviour
                 lastTimeTargetChecked = Time.time;
             }
             
-            TryMoveOnPath();
+            // if in attacking range then attack
+            if(Vector2.Distance(target.transform.position, this.transform.position) < astar.minDistanceToTarget)
+            {
+                //Debug.Log("attack");
+                Attack();
+            }
+            else
+            {
+                this.GetComponent<AnimActionPlayer>().StopAnimaction("attack");
+
+                TryMoveOnPath();
+            }
+            
         }
 
     }
 
     // METHODS
+
+    private void Attack()
+    {
+        if(!attacking)
+        {
+            // start animation
+            this.GetComponent<AnimActionPlayer>().StopAnimaction();
+            this.GetComponent<AnimActionPlayer>().PlayAction("attack");
+            attacking = true;
+            timeStartedAttacking = Time.time;
+        }
+        else
+        {
+            if(Time.time - timeStartedAttacking > this.GetComponent<AnimActionPlayer>().GetActionLength("attack"))
+            {
+                attacking = false;
+                Debug.Log("attack now");
+            }
+        }
+    }
 
     public void TakeDamage(int howMuch)
     {

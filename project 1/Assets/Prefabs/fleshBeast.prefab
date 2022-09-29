@@ -136,6 +136,7 @@ MonoBehaviour:
   animactions:
   - {fileID: 11400000, guid: 57482eba85d16564980af6f30cdda8f9, type: 2}
   - {fileID: 11400000, guid: c48783604a290d14c94a59f04dffba98, type: 2}
+  - {fileID: 11400000, guid: d6bd6ed0751e6bc409c2fe3e3b4cf5ab, type: 2}
 --- !u!114 &320038279073281284
 MonoBehaviour:
   m_ObjectHideFlags: 0
