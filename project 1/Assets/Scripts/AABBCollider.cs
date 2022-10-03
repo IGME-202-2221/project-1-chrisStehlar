@@ -11,6 +11,8 @@ public class AABBCollider : MonoBehaviour
     [HideInInspector]
     public Bounds bounds;
 
+    public bool isSolid = false;
+
     public delegate void AABBCollision(AABBCollider collider); // for collision
     public event AABBCollision OnIntersect; // subscribe other scripts to this
 

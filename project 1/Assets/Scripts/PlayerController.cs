@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     // FIELDS
 
     public float speed;
-    private Vector2 velocity;
+    private Vector2 velocity = Vector2.zero;
 
     public Texture2D cursorTex;
 
@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        this.GetComponent<AABBCollider>().OnIntersect += OnCollision;
         Cursor.SetCursor(cursorTex, Vector2.zero, CursorMode.Auto);
 
         PickupWeapon(weapon);
@@ -30,15 +31,31 @@ public class PlayerController : MonoBehaviour
 
         CheckMouse();
         
-        // CheckAttack()
+        // attack
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
             weaponInstance.TryToShoot(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
         }
     }
 
+    void LateUpdate()
+    {
+        ApplyMovement();
+    }
+
 
     // METHODS
+
+    private void OnCollision(AABBCollider col)
+    {
+        if(col.isSolid)
+        {
+            Debug.Log("hit a solid");
+            velocity.Normalize();
+            velocity -= (Vector2)(col.transform.position - this.transform.position).normalized * 10; // kind of works but jittery
+            
+        }
+    }
 
     public void PickupWeapon(Gun target)
     {
@@ -76,10 +93,18 @@ public class PlayerController : MonoBehaviour
         SetWeaponOrientation(Camera.main.ScreenToWorldPoint(Input.mousePosition) - this.transform.position, mousePos.x < this.transform.position.x);
     }
 
+    // called in late update, after any collisions may have occurred
+    private void ApplyMovement()
+    {
+        // apply the movement
+        this.transform.position += new Vector3(velocity.x, velocity.y, 0).normalized * speed * Time.deltaTime;
+
+        velocity = Vector2.zero; // reset velocity per check or else it accelerates
+    }
+
     // gets input and sets the velocity accordingly
     private void CheckForMovement()
     {
-        velocity = Vector2.zero; // reset velocity per check or else it accelerates
 
         if(Input.GetKey(KeyCode.W))
         {
@@ -100,9 +125,6 @@ public class PlayerController : MonoBehaviour
         {
             velocity += Vector2.right;
         }
-
-        // apply the movement
-        this.transform.position += new Vector3(velocity.x, velocity.y, 0).normalized * speed * Time.deltaTime;
 
         // play walk animation
         if(this.GetComponent<AnimActionPlayer>())
