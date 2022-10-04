@@ -77,6 +77,10 @@ public class Enemy : MonoBehaviour
             {
                 attacking = false;
                 Debug.Log("attack now");
+                if(target.GetComponent<PlayerController>())
+                {
+                    target.GetComponent<PlayerController>().TryToTakeDamage(this);
+                }
             }
         }
     }

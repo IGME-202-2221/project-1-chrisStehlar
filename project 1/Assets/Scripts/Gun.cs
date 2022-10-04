@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
@@ -8,6 +9,11 @@ public class Gun : MonoBehaviour
 
     public Bullet bullet;
     public float shotCooldown;
+    public int maxAmmo; // how much of this ammo type can be carried
+    public int maxClip; // how much of this ammo type can be shot
+    [HideInInspector]
+    public int ammo;    // how much is in the clip
+    public Sprite uiAmmoIcon;
 
     private float lastShotTime;
 
@@ -21,6 +27,7 @@ public class Gun : MonoBehaviour
     void Start()
     {
         lastShotTime = Time.time;
+        ammo = maxClip;
     }
 
     // Update is called once per frame
@@ -30,10 +37,16 @@ public class Gun : MonoBehaviour
     }
 
     // METHODS
+    
+    public void Reload()
+    {
+        ammo = maxClip;
+        Debug.Log("reloaded");
+    }
 
     public void TryToShoot(Vector2 direction)
     {
-        if(Time.time - lastShotTime > shotCooldown)
+        if(Time.time - lastShotTime > shotCooldown && ammo > 0)
         {
             float currentShotAngle =  0 - (shotAngle / 2);
 
@@ -54,6 +67,8 @@ public class Gun : MonoBehaviour
             {
                 this.GetComponent<AnimActionPlayer>().PlayAction("shoot");
             }
+
+            ammo--;
         }
     }
 

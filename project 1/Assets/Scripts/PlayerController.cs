@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,11 +10,19 @@ public class PlayerController : MonoBehaviour
 
     public float speed;
     private Vector2 velocity = Vector2.zero;
+    public float health = 4;
+    public float healthRegenSpeed; // how many seconds per point of health
 
     public Texture2D cursorTex;
 
     public Gun weapon; // the prefab
     private Gun weaponInstance; // the copy (edit this)
+    public int ammo;
+
+    [Header("UI")]
+    public Image[] healthOverlays;
+    public Image ammoIcon;
+    public TextMeshProUGUI ammoText;
     
     // MONO
 
@@ -23,6 +33,7 @@ public class PlayerController : MonoBehaviour
         Cursor.SetCursor(cursorTex, Vector2.zero, CursorMode.Auto);
 
         PickupWeapon(weapon);
+        ammo = weaponInstance.maxAmmo;
     }
 
     void Update()
@@ -36,6 +47,15 @@ public class PlayerController : MonoBehaviour
         {
             weaponInstance.TryToShoot(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
         }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            weaponInstance.Reload();
+            ammo -= weaponInstance.maxClip;
+        }
+
+        CheckHealth();
+        CheckUI();
     }
 
     void LateUpdate()
@@ -46,6 +66,34 @@ public class PlayerController : MonoBehaviour
 
     // METHODS
 
+    private void CheckUI()
+    {
+        ammoIcon.sprite = weaponInstance.uiAmmoIcon;
+        ammoText.text = $"{weaponInstance.ammo} | {ammo}";
+    }
+
+    private void CheckHealth()
+    {
+        if(health < 4 && health > 0)
+        {
+            health += healthRegenSpeed * Time.deltaTime;
+        }
+
+        // make the health effects fade out as health regens
+        healthOverlays[0].color = new Color(1, 1, 1, 1 - (health - 3));
+        healthOverlays[1].color = new Color(1, 1, 1, 1 - (health - 2));
+        healthOverlays[2].color = new Color(1, 1, 1, 1 - (health - 1));
+    }
+
+    public void TryToTakeDamage(Enemy attacker)
+    {
+        if(Vector2.Distance(this.transform.position, attacker.transform.position) < 1)
+        {
+            Debug.Log("OUCH");
+            health -= 1;
+        }
+    }
+
     private void OnCollision(AABBCollider col)
     {
         if(col.isSolid)
@@ -53,6 +101,11 @@ public class PlayerController : MonoBehaviour
             Debug.Log("hit a solid");
             velocity.Normalize();
             velocity -= (Vector2)(col.transform.position - this.transform.position).normalized * 10; // kind of works but jittery
+
+            // if(col.transform.position.x > this.transform.position.x)
+            // {
+            //     velocity -= Vector2.right;
+            // }
             
         }
     }
