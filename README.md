@@ -11,9 +11,9 @@
 
 -   Camera Orientation: Topdown
 -   Camera Movement: Follow player
--   Player Health: Healthbar
+-   Player Health: Screen effects
 -   End Condition: Wave survival
--   Scoring: Kill count and time survived
+-   Scoring: Kill count and waves survived
 
 ### Game Description
 
@@ -27,6 +27,7 @@ Play as a scientist who has lost control of the lab. Test subjects are on the lo
     -   Left: A
     -   Right: D
 -   Fire: Left-click
+-   Reload: R
 
 ## Your Additions
 
