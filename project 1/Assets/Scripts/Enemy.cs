@@ -40,6 +40,11 @@ public class Enemy : MonoBehaviour
             // the cpu with thousands of a* calls
             if(Time.time - lastTimeTargetChecked > targetCheckRate)
             {
+                if(target.GetComponent<AABBCollider>())
+                {
+                    // path towards the center of the bounding box (the legs of the character)
+                    SetDestination(Vector2.Lerp(target.GetComponent<AABBCollider>().bounds.max, target.GetComponent<AABBCollider>().bounds.min, 0.5f));
+                }
                 SetDestination(target.transform.position);
                 lastTimeTargetChecked = Time.time;
             }
@@ -86,7 +91,6 @@ public class Enemy : MonoBehaviour
             //Debug.DrawLine(this.transform.position, col.transform.position, Color.magenta, 0.1f);
             Vector2 collisionVector = this.transform.position - col.transform.position;
             this.transform.Translate(collisionVector.normalized  * Time.deltaTime);
-            
         }
     }
 

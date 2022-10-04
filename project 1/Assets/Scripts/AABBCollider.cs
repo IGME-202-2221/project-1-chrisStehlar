@@ -6,7 +6,8 @@ public class AABBCollider : MonoBehaviour
 {
     // FIELDS
 
-    public float scale = 1f;
+    public Vector2 scale = new Vector2(1, 1);
+    public Vector2 offset;
 
     [HideInInspector]
     public Bounds bounds;
@@ -35,8 +36,11 @@ public class AABBCollider : MonoBehaviour
         bounds.max = bounds.center;     // set the bounds to the center
         bounds.min = bounds.max;        // copy the position of bounds.max so they can expand outward from each other
 
-        bounds.max += centerOut * scale;  // scale the bounds outwards
-        bounds.min -= centerOut * scale;
+        bounds.max += (Vector3)(centerOut * scale);  // scale the bounds outwards
+        bounds.min -= (Vector3)(centerOut * scale);
+
+        bounds.max += (Vector3)offset;      // adjust the bounds to the right spot
+        bounds.min += (Vector3)offset;
 
         // check for collision
         CheckForCollisions();

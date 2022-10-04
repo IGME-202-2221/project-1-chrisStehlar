@@ -114,10 +114,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78af1e774da150646b51de0b11b16082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scale: 0.25
+  scale: {x: 0.1, y: 0.1}
+  offset: {x: 0, y: 0}
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
+  isSolid: 0
 --- !u!114 &-1991185059884773923
 MonoBehaviour:
   m_ObjectHideFlags: 0
