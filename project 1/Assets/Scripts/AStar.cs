@@ -130,7 +130,7 @@ public class AStar : MonoBehaviour
         }
         else
         {
-            Debug.Log("Target in invalid location.");
+            //Debug.Log("Target in invalid location.");
         }
     }
 

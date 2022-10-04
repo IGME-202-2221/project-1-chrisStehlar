@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
     {
         if(Vector2.Distance(this.transform.position, attacker.transform.position) < 1)
         {
-            Debug.Log("OUCH");
+            //Debug.Log("OUCH");
             health -= 1;
         }
     }
@@ -98,14 +98,9 @@ public class PlayerController : MonoBehaviour
     {
         if(col.isSolid)
         {
-            Debug.Log("hit a solid");
+            //Debug.Log("hit a solid");
             velocity.Normalize();
             velocity -= (Vector2)(col.transform.position - this.transform.position).normalized * 10; // kind of works but jittery
-
-            // if(col.transform.position.x > this.transform.position.x)
-            // {
-            //     velocity -= Vector2.right;
-            // }
             
         }
     }

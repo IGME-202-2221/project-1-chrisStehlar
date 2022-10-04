@@ -23,6 +23,8 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        this.GetComponent<AABBCollider>().OnIntersect += OnCollision;
+
         astar = GetComponent<AStar>();
         lastTimeTargetChecked = Time.time- targetCheckRate;
 
@@ -59,7 +61,34 @@ public class Enemy : MonoBehaviour
 
     }
 
+    void LateUpdate()
+    {
+        ApplyMovement();
+    }
+
     // METHODS
+
+    // called in late update, after any collisions may have occurred
+    private void ApplyMovement()
+    {
+        // apply the movement
+        //this.transform.position += new Vector3(velocity.x, velocity.y, 0).normalized * speed * Time.deltaTime;
+        this.transform.Translate(new Vector3(velocity.x, velocity.y, 0).normalized * speed * Time.deltaTime);
+
+        velocity = Vector2.zero; // reset velocity per check or else it accelerates
+    }
+
+    private void OnCollision(AABBCollider col)
+    {
+        // avoid bumping/clipping into each other
+        if(col.GetComponent<Enemy>())
+        {
+            //Debug.DrawLine(this.transform.position, col.transform.position, Color.magenta, 0.1f);
+            Vector2 collisionVector = this.transform.position - col.transform.position;
+            this.transform.Translate(collisionVector.normalized  * Time.deltaTime);
+            
+        }
+    }
 
     private void Attack()
     {
@@ -136,7 +165,7 @@ public class Enemy : MonoBehaviour
             this.GetComponent<AnimActionPlayer>().StopAnimaction("walk");
         }
 
-        this.transform.position += new Vector3(velocity.x, velocity.y, 0).normalized * speed * Time.deltaTime;
+        //this.transform.position += new Vector3(velocity.x, velocity.y, 0).normalized * speed * Time.deltaTime;
     }
 
     // the outward facing method that sets up where to go

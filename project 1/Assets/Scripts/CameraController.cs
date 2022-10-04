@@ -6,6 +6,8 @@ public class CameraController : MonoBehaviour
 {
     // FIELDS
 
+    public GameObject target;
+    public Vector3 offset;
 
     // MONO
 
@@ -18,10 +20,12 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // track the target
+        this.transform.position = target.transform.position;
+        this.transform.Translate(offset);
     }
 
     // METHODS
 
-    
+
 }
