@@ -17,6 +17,9 @@ public class AABBCollider : MonoBehaviour
     public delegate void AABBCollision(AABBCollider collider); // for collision
     public event AABBCollision OnIntersect; // subscribe other scripts to this
 
+    public delegate void AABBNullCollision(); // to say there are no collisions
+    public event AABBNullCollision NullCollision; // called when there are no collisions
+
     // MONO
 
     // Start is called before the first frame update
@@ -70,7 +73,7 @@ public class AABBCollider : MonoBehaviour
     {
         foreach(AABBCollider other in GameObject.FindObjectsOfType<AABBCollider>())
         {
-            if(other != this)
+            if(other != this && !other.transform.IsChildOf(this.transform))
             {
                 if(other.bounds.min.x < bounds.max.x && other.bounds.max.x > bounds.min.x && other.bounds.max.y > bounds.min.y && other.bounds.min.y < bounds.max.y)
                 {
@@ -83,6 +86,9 @@ public class AABBCollider : MonoBehaviour
                 }
             }
         }
+
+        if(NullCollision != null)
+            NullCollision();
 
     }
 }
