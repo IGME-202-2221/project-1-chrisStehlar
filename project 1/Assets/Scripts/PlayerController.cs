@@ -117,8 +117,35 @@ public class PlayerController : MonoBehaviour
         if(col.isSolid)
         {
             //Debug.Log("hit a solid");
+
             velocity.Normalize();
-            velocity -= (Vector2)(col.transform.position - this.transform.position).normalized * 10; // kind of works but jittery
+
+            Vector2 colCenter = Vector2.Lerp(col.bounds.max, col.bounds.min, 0.5f);
+
+            // if coming in from the side
+            if(this.transform.position.x > col.bounds.max.x || this.transform.position.x < col.bounds.min.x)
+            {
+                if(colCenter.x > this.transform.position.x)
+                {
+                    velocity -= Vector2.right;
+                }
+                else
+                {
+                    velocity += Vector2.right;
+                }
+            }
+            // coming in from the top or bottom
+            else
+            {
+                if(colCenter.y > this.transform.position.y)
+                {
+                    velocity -= Vector2.up;
+                }
+                else
+                {
+                    velocity += Vector2.up;
+                }
+            }
             
         }
 
