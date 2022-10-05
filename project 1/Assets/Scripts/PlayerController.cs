@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
     private Gun weaponInstance; // the copy (edit this)
     public int ammo;
 
+    private bool inInteractable = false;
+    private TextMeshProUGUI interactableText;
+
     [Header("UI")]
     public Image[] healthOverlays;
     public Image ammoIcon;
@@ -32,12 +35,15 @@ public class PlayerController : MonoBehaviour
         this.GetComponent<AABBCollider>().OnIntersect += OnCollision;
         Cursor.SetCursor(cursorTex, Vector2.zero, CursorMode.Auto);
 
+        interactableText = GameObject.Find("Canvas").transform.Find("HUD - Panel").transform.Find("interactionText").GetComponent<TextMeshProUGUI>();
+
         PickupWeapon(weapon);
         ammo = weaponInstance.maxAmmo;
     }
 
     void Update()
     {
+
         CheckForMovement();
 
         CheckMouse();
@@ -56,15 +62,27 @@ public class PlayerController : MonoBehaviour
 
         CheckHealth();
         CheckUI();
+
     }
 
     void LateUpdate()
     {
+        CheckForInteractions();
         ApplyMovement();
     }
 
 
     // METHODS
+
+    private void CheckForInteractions()
+    {
+        if(!inInteractable)
+        {
+            interactableText.text = "";
+        }
+
+        inInteractable = false; // set false at first and then check to update the interactable text in the OnCollision method
+    }
 
     private void CheckUI()
     {
@@ -103,12 +121,19 @@ public class PlayerController : MonoBehaviour
             velocity -= (Vector2)(col.transform.position - this.transform.position).normalized * 10; // kind of works but jittery
             
         }
+
+        if(col.GetComponent<Interactable>())
+        {
+            inInteractable = true;
+        }
     }
 
     public void PickupWeapon(Gun target)
     {
-        if(weapon.transform.IsChildOf(this.transform))
-            Destroy(weapon.gameObject);     // out with the old weapon
+        //if(weapon.transform.IsChildOf(this.transform))
+        //    Destroy(weapon.gameObject);     // out with the old weapon
+        if(weaponInstance != null)
+            Destroy(weaponInstance.gameObject);
         weapon = target;                // in with the new (then it gets updated in CheckMouse())
 
         if(!weapon.transform.IsChildOf(this.transform))
