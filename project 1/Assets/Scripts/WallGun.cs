@@ -28,6 +28,11 @@ public class WallGun : MonoBehaviour
 
     public void GiveGun(PlayerController who)
     {
-        who.PickupWeapon(gun);
+        if(who.points > pointsToBuy)
+        {
+            who.points -= pointsToBuy;
+            who.PickupWeapon(gun);
+        }
+
     }
 }

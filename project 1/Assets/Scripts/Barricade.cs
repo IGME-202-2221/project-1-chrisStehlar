@@ -24,24 +24,18 @@ public class Barricade : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.DownArrow))
-        {   
-            TakeDamage(1);
-        }
-        // else if(Input.GetKeyDown(KeyCode.UpArrow))
-        // {
-        //     Repair(1);
-        // }
+ 
     }
 
     // METHODS
 
     private void PlayerRepair(PlayerController player)
     {
-        if(Time.time - lastRepair > repairDelay && health < stages.Length)
+        if(Time.time - lastRepair > repairDelay && health < stages.Length - 1)
         {
             Repair(1);
             lastRepair = Time.time;
+            player.points += 2;
         }
     }
 

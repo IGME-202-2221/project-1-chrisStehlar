@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
     [HideInInspector]
     public GameObject target; // what they are trying to attack
     public float health;
+    public int pointsOnHit;
+    public int pointsOnKill;
     public float speed;
     private Vector2 velocity;
     private AStar astar;
@@ -140,6 +142,8 @@ public class Enemy : MonoBehaviour
     {
         health -= howMuch;
 
+        GameObject.Find("player").GetComponent<PlayerController>().points += pointsOnHit;
+
         if(health < 1)
         {
             this.GetComponent<AnimActionPlayer>().StopAnimaction(); // stop whatever was happening
@@ -147,6 +151,8 @@ public class Enemy : MonoBehaviour
             Destroy(this.gameObject, this.GetComponent<AnimActionPlayer>().GetActionLength("die"));
 
             this.GetComponent<SpriteRenderer>().sortingOrder = 0; // go behind the alive creatures
+
+            GameObject.Find("player").GetComponent<PlayerController>().points += pointsOnKill;
 
             Destroy(this.GetComponent<AABBCollider>()); // delete the collider because collisions check even when disabled as of right now
         }

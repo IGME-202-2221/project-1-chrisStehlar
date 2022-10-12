@@ -38,7 +38,7 @@ public class Prop : MonoBehaviour
     // called when a collision happens with the sprite part (not the actually solid child)
     private void RenderInFront(AABBCollider otherCol)
     {
-        if(otherCol.GetComponent<SpriteRenderer>())
+        if(otherCol.GetComponent<SpriteRenderer>() && !otherCol.isStatic)
         {
             SpriteRenderer renderer = this.GetComponent<SpriteRenderer>();
             renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 0.5f);

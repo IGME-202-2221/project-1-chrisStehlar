@@ -13,6 +13,7 @@ public class AABBCollider : MonoBehaviour
     public Bounds bounds;
 
     public bool isSolid = false;
+    public bool isStatic = false; // for things that dont need to do collision checks for themselves
 
     public delegate void AABBCollision(AABBCollider collider); // for collision
     public event AABBCollision OnIntersect; // subscribe other scripts to this
@@ -71,26 +72,30 @@ public class AABBCollider : MonoBehaviour
 
     private void CheckForCollisions()
     {
-        bool intersected = false;
-        foreach(AABBCollider other in GameObject.FindObjectsOfType<AABBCollider>())
+        if(!isStatic)
         {
-            if(other != this && !other.transform.IsChildOf(this.transform))
+            bool intersected = false;
+            foreach(AABBCollider other in GameObject.FindObjectsOfType<AABBCollider>())
             {
-                if(other.bounds.min.x < bounds.max.x && other.bounds.max.x > bounds.min.x && other.bounds.max.y > bounds.min.y && other.bounds.min.y < bounds.max.y)
+                if(other != this && !other.transform.IsChildOf(this.transform))
                 {
-                    //Debug.DrawRay(bounds.center, Vector2.up, Color.blue, .01f);
-                    
-                    if(OnIntersect != null)
-                        OnIntersect(other);
+                    if(other.bounds.min.x < bounds.max.x && other.bounds.max.x > bounds.min.x && other.bounds.max.y > bounds.min.y && other.bounds.min.y < bounds.max.y)
+                    {
+                        //Debug.DrawRay(bounds.center, Vector2.up, Color.blue, .01f);
+                        
+                        if(OnIntersect != null)
+                            OnIntersect(other);
 
-                    intersected = true;
-                    //return; // found a collision, now it's over
+                        intersected = true;
+                        //return; // found a collision, now it's over
+                    }
                 }
             }
-        }
 
-        if(NullCollision != null && !intersected)
-            NullCollision();
+            if(NullCollision != null && !intersected)
+                NullCollision();
+        }
+        
 
     }
 }

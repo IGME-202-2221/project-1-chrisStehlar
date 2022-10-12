@@ -102,6 +102,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   health: 5
+  pointsOnHit: 2
+  pointsOnKill: 5
   speed: 2
   targetCheckRate: 0.5
 --- !u!114 &1715242692846051916

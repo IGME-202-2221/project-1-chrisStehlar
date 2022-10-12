@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -12,6 +13,10 @@ public class PlayerController : MonoBehaviour
     private Vector2 velocity = Vector2.zero;
     public float health = 4;
     public float healthRegenSpeed; // how many seconds per point of health
+
+    public int points;
+    public float pointsIncrementSpeed;
+    private float pointsFloat;
 
     public Texture2D cursorTex;
 
@@ -26,6 +31,7 @@ public class PlayerController : MonoBehaviour
     public Image[] healthOverlays;
     public Image ammoIcon;
     public TextMeshProUGUI ammoText;
+    public TextMeshProUGUI pointsText;
     
     // MONO
 
@@ -88,6 +94,19 @@ public class PlayerController : MonoBehaviour
     {
         ammoIcon.sprite = weaponInstance.uiAmmoIcon;
         ammoText.text = $"{weaponInstance.ammo} | {ammo}";
+
+        // increase the points with a little animation
+        int currentPointsInText = Int32.Parse(pointsText.text);
+        if(currentPointsInText < points)
+        {
+            pointsFloat += pointsIncrementSpeed * Time.deltaTime;
+        }
+        else if(currentPointsInText > points)
+        {
+            pointsFloat -= pointsIncrementSpeed * Time.deltaTime;
+        }
+        pointsText.text = (int)pointsFloat + "";
+
     }
 
     private void CheckHealth()
