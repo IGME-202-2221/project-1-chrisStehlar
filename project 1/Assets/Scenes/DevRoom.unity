@@ -614,6 +614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: '[E] Pistol - 10pts'
+  holdCanInteract: 0
 --- !u!114 &439829812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -810,6 +811,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: '[E] Repair'
+  holdCanInteract: 1
 --- !u!1 &688691470
 GameObject:
   m_ObjectHideFlags: 0
@@ -1568,6 +1570,10 @@ PrefabInstance:
     - target: {fileID: 320038279073281282, guid: 5336cc586cef61840b3b361ddf617413, type: 3}
       propertyPath: m_Name
       value: fleshBeast
+      objectReference: {fileID: 0}
+    - target: {fileID: 320038279073281282, guid: 5336cc586cef61840b3b361ddf617413, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5336cc586cef61840b3b361ddf617413, type: 3}
@@ -3334,6 +3340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: '[E] Shotgun - 25pts'
+  holdCanInteract: 0
 --- !u!212 &1876603141
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3606,6 +3613,10 @@ PrefabInstance:
     - target: {fileID: 1715242692846051915, guid: dbd641ed19d66874eb6b781ebba19a12, type: 3}
       propertyPath: m_Name
       value: infectedDoctor
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715242692846051915, guid: dbd641ed19d66874eb6b781ebba19a12, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1715242692846051917, guid: dbd641ed19d66874eb6b781ebba19a12, type: 3}
       propertyPath: m_RootOrder

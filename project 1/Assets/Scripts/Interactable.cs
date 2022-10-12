@@ -10,6 +10,8 @@ public class Interactable : MonoBehaviour
     public string prompt;
     private TextMeshProUGUI tmpText;
 
+    public bool holdCanInteract; // can hold instead of tapping
+
     public delegate void Interaction(PlayerController interactor);
     public event Interaction OnInteract;
 
@@ -38,7 +40,14 @@ public class Interactable : MonoBehaviour
         {
             tmpText.text = prompt;
 
-            if(Input.GetKeyDown(KeyCode.E))
+            if(holdCanInteract && Input.GetKey(KeyCode.E) )
+            {
+                if(OnInteract != null)
+                {
+                    OnInteract(col.GetComponent<PlayerController>());
+                }
+            }
+            else if(Input.GetKeyDown(KeyCode.E))
             {
                 if(OnInteract != null)
                 {

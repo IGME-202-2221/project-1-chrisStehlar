@@ -71,6 +71,7 @@ public class AABBCollider : MonoBehaviour
 
     private void CheckForCollisions()
     {
+        bool intersected = false;
         foreach(AABBCollider other in GameObject.FindObjectsOfType<AABBCollider>())
         {
             if(other != this && !other.transform.IsChildOf(this.transform))
@@ -82,12 +83,13 @@ public class AABBCollider : MonoBehaviour
                     if(OnIntersect != null)
                         OnIntersect(other);
 
-                    return; // found a collision, now it's over
+                    intersected = true;
+                    //return; // found a collision, now it's over
                 }
             }
         }
 
-        if(NullCollision != null)
+        if(NullCollision != null && !intersected)
             NullCollision();
 
     }

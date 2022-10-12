@@ -114,6 +114,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollision(AABBCollider col)
     {
+
         if(col.isSolid)
         {
             //Debug.Log("hit a solid");
