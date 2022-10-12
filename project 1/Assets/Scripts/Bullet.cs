@@ -50,7 +50,7 @@ public class Bullet : MonoBehaviour
 
     private void TryToDamage(AABBCollider target)
     {
-        if(!impacted && !target.GetComponent<PlayerController>() && !target.GetComponent<Bullet>() && !target.GetComponent<Prop>() && !target.GetComponent<WallGun>())
+        if(!impacted && !target.GetComponent<PlayerController>() && !target.GetComponent<Bullet>() && !target.GetComponent<Prop>() && !target.GetComponent<Interactable>() && !target.GetComponentInParent<Barricade>())
         {
             //Debug.Log("just shot " + target);
 

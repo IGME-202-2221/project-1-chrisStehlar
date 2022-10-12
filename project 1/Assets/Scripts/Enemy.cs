@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     private float lastTimeTargetChecked; // how many seconds before next check
     private bool attacking = false;
     private float timeStartedAttacking;
+    private bool pastBarricade;
 
     // MONO
 
@@ -45,7 +46,11 @@ public class Enemy : MonoBehaviour
                     // path towards the center of the bounding box (the legs of the character)
                     SetDestination(Vector2.Lerp(target.GetComponent<AABBCollider>().bounds.max, target.GetComponent<AABBCollider>().bounds.min, 0.5f));
                 }
-                SetDestination(target.transform.position);
+                else
+                {
+                    SetDestination(target.transform.position);
+                }
+
                 lastTimeTargetChecked = Time.time;
             }
             
@@ -92,6 +97,8 @@ public class Enemy : MonoBehaviour
             Vector2 collisionVector = this.transform.position - col.transform.position;
             this.transform.Translate(collisionVector.normalized  * Time.deltaTime);
         }
+
+        CheckForBarricade(col);
     }
 
     private void Attack()
@@ -110,9 +117,20 @@ public class Enemy : MonoBehaviour
             {
                 attacking = false;
                 Debug.Log("attack now");
+
+                // if the target is the palyer
                 if(target.GetComponent<PlayerController>())
                 {
                     target.GetComponent<PlayerController>().TryToTakeDamage(this);
+                } 
+                // if the target is the barricade then try and destroy it then target the player
+                else if(target.GetComponent<Barricade>())
+                {
+                    target.GetComponent<Barricade>().TakeDamage(1);
+                    if(target.GetComponent<Barricade>().health <= 0)
+                    {
+                        target = GameObject.Find("player");
+                    }
                 }
             }
         }
@@ -169,7 +187,19 @@ public class Enemy : MonoBehaviour
             this.GetComponent<AnimActionPlayer>().StopAnimaction("walk");
         }
 
-        //this.transform.position += new Vector3(velocity.x, velocity.y, 0).normalized * speed * Time.deltaTime;
+    }
+
+    private void CheckForBarricade(AABBCollider col)
+    {
+        if(!pastBarricade)
+        {
+            if(col.GetComponent<Barricade>() && col.GetComponent<Barricade>().health > 0)
+            {
+                //Debug.Log("im at the barricade");
+                target = col.gameObject;
+                pastBarricade = true;
+            }
+        }
     }
 
     // the outward facing method that sets up where to go

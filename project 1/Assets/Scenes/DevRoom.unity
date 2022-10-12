@@ -223,6 +223,7 @@ MonoBehaviour:
   weightLeft: 0
   avgTimeToSpawn: 10
   avgTimeDeviation: 5
+  barricade: {fileID: 0}
   spawnChoices:
   - enemy: {fileID: 320038279073281286, guid: 5336cc586cef61840b3b361ddf617413, type: 3}
     weight: 5
@@ -844,6 +845,7 @@ MonoBehaviour:
   weightLeft: 0
   avgTimeToSpawn: 10
   avgTimeDeviation: 5
+  barricade: {fileID: 0}
   spawnChoices:
   - enemy: {fileID: 320038279073281286, guid: 5336cc586cef61840b3b361ddf617413, type: 3}
     weight: 5
@@ -1665,6 +1667,7 @@ MonoBehaviour:
   health: 5
   speed: 2
   targetCheckRate: 0.5
+  barricade: {fileID: 0}
 --- !u!212 &1429006585
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1820,6 +1823,7 @@ MonoBehaviour:
   health: 5
   speed: 2
   targetCheckRate: 0.5
+  barricade: {fileID: 0}
 --- !u!212 &1433339645
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1960,6 +1964,7 @@ MonoBehaviour:
   weightLeft: 0
   avgTimeToSpawn: 10
   avgTimeDeviation: 5
+  barricade: {fileID: 0}
   spawnChoices:
   - enemy: {fileID: 320038279073281286, guid: 5336cc586cef61840b3b361ddf617413, type: 3}
     weight: 5
@@ -2088,6 +2093,7 @@ MonoBehaviour:
   weightLeft: 0
   avgTimeToSpawn: 10
   avgTimeDeviation: 5
+  barricade: {fileID: 0}
   spawnChoices:
   - enemy: {fileID: 320038279073281286, guid: 5336cc586cef61840b3b361ddf617413, type: 3}
     weight: 5
@@ -3567,7 +3573,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2015506462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3583,6 +3589,7 @@ MonoBehaviour:
   weightLeft: 0
   avgTimeToSpawn: 10
   avgTimeDeviation: 5
+  barricade: {fileID: 222088163}
   spawnChoices:
   - enemy: {fileID: 320038279073281286, guid: 5336cc586cef61840b3b361ddf617413, type: 3}
     weight: 5
