@@ -124,11 +124,25 @@ public class PlayerController : MonoBehaviour
 
     public void TryToTakeDamage(Enemy attacker)
     {
-        if(Vector2.Distance(this.transform.position, attacker.transform.position) < 1)
+        // only take damage if you are alive
+        if(health > 0)
         {
-            //Debug.Log("OUCH");
-            health -= 1;
+            if(Vector2.Distance(this.transform.position, attacker.transform.position) < 1)
+            {
+                //Debug.Log("OUCH");
+                health -= 1;
+            }
+
+            if(health <= 0) // death
+            {
+                Camera.main.GetComponent<CameraController>().TriggerWander(true);
+            }
         }
+        // else // already dead
+        // {
+
+        // }
+        
     }
 
     private void OnCollision(AABBCollider col)
