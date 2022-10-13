@@ -49,7 +49,7 @@ public class AStar : MonoBehaviour
 
     // METHODS
 
-    public void PathTo(Vector2 targetPos)
+    public bool PathTo(Vector2 targetPos)
     {
         
         if(IsValidTarget(targetPos))
@@ -78,7 +78,7 @@ public class AStar : MonoBehaviour
                     path.Clear(); // remove the old path
                     StackPath(currentNode); // save the new one
                     DrawPath(currentNode);
-                    break;
+                    return true;
                 }
 
 
@@ -128,10 +128,8 @@ public class AStar : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            //Debug.Log("Target in invalid location.");
-        }
+        
+        return false; // if no path found return false
     }
 
     // called when the path is found, adds all the locations into a stack
