@@ -8,8 +8,11 @@ public class TransitionController : MonoBehaviour
     // FIELDS
     public Image panel;
     private bool transitioning = false;
+    private Color startColor;
     private Color targetColor;
     //private float speed;
+    private float startTransition;
+    private float transitionDuration;
 
     // MONO
 
@@ -24,9 +27,9 @@ public class TransitionController : MonoBehaviour
     {
         if(transitioning)
         {
-            
+            panel.color = Color.Lerp(startColor, targetColor, (Time.time - startTransition) / transitionDuration);
 
-            if(panel.color == targetColor)
+            if((Time.time - startTransition) / transitionDuration >= 1f)
             {
                 transitioning = false;
             }
@@ -35,10 +38,16 @@ public class TransitionController : MonoBehaviour
 
     // METHODS
 
+    // called externally
     public void FadeFromTo(Color from, Color to, float howLong)
     {
         targetColor = to;
-        panel.color = from;
+        startColor = from;
+
+        transitioning = true;
+
+        transitionDuration = howLong;
+        startTransition = Time.time;
         
     }
 }

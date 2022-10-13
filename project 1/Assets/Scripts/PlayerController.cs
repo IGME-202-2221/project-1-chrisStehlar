@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class PlayerController : MonoBehaviour
     public Image ammoIcon;
     public TextMeshProUGUI ammoText;
     public TextMeshProUGUI pointsText;
+    public GameObject hudPanel;
+    public GameObject deathPanel;
     
     // MONO
 
@@ -43,6 +46,8 @@ public class PlayerController : MonoBehaviour
 
         interactableText = GameObject.Find("Canvas").transform.Find("HUD - Panel").transform.Find("interactionText").GetComponent<TextMeshProUGUI>();
 
+        this.GetComponent<TransitionController>().FadeFromTo(Color.black, Color.clear, 2.5f);
+
         PickupWeapon(weapon);
         ammo = weaponInstance.maxAmmo;
     }
@@ -50,31 +55,40 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        CheckForMovement();
+        if(health > 0)
+        {
+            CheckForMovement();
 
-        CheckMouse();
+            CheckMouse();
+            
+            // attack
+            if(Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                weaponInstance.TryToShoot(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
+            }
+
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                weaponInstance.Reload();
+                ammo -= weaponInstance.maxClip;
+            }
+
+            CheckHealth();
+            CheckUI();
+        }
         
-        // attack
-        if(Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            weaponInstance.TryToShoot(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
-        }
 
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            weaponInstance.Reload();
-            ammo -= weaponInstance.maxClip;
-        }
-
-        CheckHealth();
-        CheckUI();
+        
 
     }
 
     void LateUpdate()
     {
-        CheckForInteractions();
-        ApplyMovement();
+        if(health > 0)
+        {
+            CheckForInteractions();
+            ApplyMovement();
+        }
     }
 
 
@@ -106,6 +120,7 @@ public class PlayerController : MonoBehaviour
             pointsFloat -= pointsIncrementSpeed * Time.deltaTime;
         }
         pointsText.text = (int)pointsFloat + "";
+        
 
     }
 
@@ -136,12 +151,13 @@ public class PlayerController : MonoBehaviour
             if(health <= 0) // death
             {
                 Camera.main.GetComponent<CameraController>().TriggerWander(true);
+                GetComponent<TransitionController>().FadeFromTo(Color.clear, new Color(1, 0, 0, 0.5f), 0.5f);
+
+                hudPanel.SetActive(false);
+                deathPanel.SetActive(true);
             }
         }
-        // else // already dead
-        // {
 
-        // }
         
     }
 
@@ -273,5 +289,10 @@ public class PlayerController : MonoBehaviour
             }
         }
         
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("DevRoom");
     }
 }
