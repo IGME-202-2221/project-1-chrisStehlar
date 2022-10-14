@@ -10,6 +10,7 @@ public class Spawner : MonoBehaviour
     public float avgTimeToSpawn;
     public float avgTimeDeviation;
     public EnemySpawn[] spawnChoices;
+    public bool isOpen;
 
     private float lastSpawnTime;
     private float nextSpawnTime;
@@ -21,19 +22,24 @@ public class Spawner : MonoBehaviour
     {
         lastSpawnTime = Time.time;
         nextSpawnTime = avgTimeToSpawn + Random.Range(-avgTimeDeviation, avgTimeDeviation);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        TryToSpawn();
+        if(isOpen)
+        {
+            TryToSpawn();
+        }
+        
     }
 
     // METHODS
 
     private void TryToSpawn()
     {
-        if(Time.time > nextSpawnTime)
+        if(Time.time > nextSpawnTime && weightLeft > 0)
         {
             // make spawn choice
             int totalWeight = 0;
@@ -63,13 +69,19 @@ public class Spawner : MonoBehaviour
             // spawn the choice
 
             Instantiate(enemySpawnChoice.enemy, this.transform.position, this.transform.rotation);
+            weightLeft -= enemySpawnChoice.weight;
 
             // reset spawn timer
 
-            lastSpawnTime = Time.time;
-            nextSpawnTime = Time.time + avgTimeToSpawn + Random.Range(-avgTimeDeviation, avgTimeDeviation);
+            ResetSpawnTimer();
             
         }
+    }
+
+    public void ResetSpawnTimer()
+    {
+        lastSpawnTime = Time.time;
+        nextSpawnTime = Time.time + avgTimeToSpawn + Random.Range(-avgTimeDeviation, avgTimeDeviation);
     }
 
 }

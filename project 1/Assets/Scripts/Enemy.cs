@@ -118,7 +118,7 @@ public class Enemy : MonoBehaviour
             if(Time.time - timeStartedAttacking > this.GetComponent<AnimActionPlayer>().GetActionLength("attack"))
             {
                 attacking = false;
-                Debug.Log("attack now");
+                //Debug.Log("attack now");
 
                 // if the target is the palyer
                 if(target.GetComponent<PlayerController>())

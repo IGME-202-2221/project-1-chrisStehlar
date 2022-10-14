@@ -105,3 +105,4 @@ MonoBehaviour:
     weight: 5
   - enemy: {fileID: 1715242692846051953, guid: dbd641ed19d66874eb6b781ebba19a12, type: 3}
     weight: 3
+  isOpen: 1

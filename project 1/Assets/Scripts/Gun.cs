@@ -41,7 +41,7 @@ public class Gun : MonoBehaviour
     public void Reload()
     {
         ammo = maxClip;
-        Debug.Log("reloaded");
+        //Debug.Log("reloaded");
     }
 
     public void TryToShoot(Vector2 direction)
