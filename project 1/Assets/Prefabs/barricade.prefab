@@ -65,6 +65,7 @@ MonoBehaviour:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   isSolid: 0
+  isStatic: 0
 --- !u!1 &7731245526638440348
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,6 +186,7 @@ MonoBehaviour:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   isSolid: 0
+  isStatic: 0
 --- !u!114 &7731245526638440353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,9 +251,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78af1e774da150646b51de0b11b16082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scale: {x: 1, y: 0.25}
-  offset: {x: 0, y: -0.66}
+  scale: {x: 1, y: 1}
+  offset: {x: 0, y: 0}
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   isSolid: 1
+  isStatic: 0

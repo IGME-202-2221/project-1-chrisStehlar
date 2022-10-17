@@ -45,6 +45,11 @@ public class Prop : MonoBehaviour
 
             renderer.sortingOrder = otherCol.GetComponent<SpriteRenderer>().sortingOrder + 1;
         }
+        // dont bother to fade out if the other col is static
+        else if(otherCol.isStatic)
+        {
+            RenderNormally();
+        }
     }
 
     // called when there are no collisions on this object

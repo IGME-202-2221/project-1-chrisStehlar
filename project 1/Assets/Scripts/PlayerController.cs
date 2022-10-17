@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     public float speed;
     private Vector2 velocity = Vector2.zero;
+    private Vector2 input;
     public float health = 4;
     public float healthRegenSpeed; // how many seconds per point of health
 
@@ -177,24 +178,26 @@ public class PlayerController : MonoBehaviour
             {
                 if(colCenter.x > this.transform.position.x)
                 {
-                    velocity -= Vector2.right;
+                    velocity += new Vector2(-1, 0);
                 }
                 else
                 {
-                    velocity += Vector2.right;
+                    velocity += new Vector2(1, 0);
                 }
+
             }
             // coming in from the top or bottom
             else
             {
                 if(colCenter.y > this.transform.position.y)
                 {
-                    velocity -= Vector2.up;
+                    velocity += new Vector2(0, -1);
                 }
                 else
                 {
-                    velocity += Vector2.up;
+                    velocity += new Vector2(0, 1);
                 }
+
             }
             
         }
@@ -246,6 +249,8 @@ public class PlayerController : MonoBehaviour
     // called in late update, after any collisions may have occurred
     private void ApplyMovement()
     {
+        velocity += input; // add the input to the velocity after having subtracted collisions from velocity
+
         // apply the movement
         this.transform.position += new Vector3(velocity.x, velocity.y, 0).normalized * speed * Time.deltaTime;
 
@@ -255,31 +260,36 @@ public class PlayerController : MonoBehaviour
     // gets input and sets the velocity accordingly
     private void CheckForMovement()
     {
+        input = Vector2.zero; // reset input every check
 
         if(Input.GetKey(KeyCode.W))
         {
-            velocity += Vector2.up;
+            //velocity += Vector2.up;
+            input += new Vector2(0, 1);
         }
 
         if(Input.GetKey(KeyCode.S))
         {
-            velocity -= Vector2.up;
+            //velocity -= Vector2.up;
+            input += new Vector2(0, -1);
         }
 
         if(Input.GetKey(KeyCode.A))
         {
-            velocity -= Vector2.right;
+            //velocity -= Vector2.right;
+            input += new Vector2(-1, 0);
         }
 
         if(Input.GetKey(KeyCode.D))
         {
-            velocity += Vector2.right;
+            //velocity += Vector2.right;
+            input += new Vector2(1, 0);
         }
 
         // play walk animation
         if(this.GetComponent<AnimActionPlayer>())
         {
-            if(velocity.sqrMagnitude > 0)
+            if(input.sqrMagnitude > 0)
             {
                 this.GetComponent<AnimActionPlayer>().PlayAction("walk");
             }

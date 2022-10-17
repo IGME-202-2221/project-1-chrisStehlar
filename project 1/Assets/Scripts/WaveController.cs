@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class WaveController : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class WaveController : MonoBehaviour
     private float lastWaveEnd; // time the last wave ended
     private bool onWaveBreak = false;
     public AudioClip waveStartSound;
+    public TextMeshProUGUI waveText; // TEMP
 
 
     // MONO
@@ -54,6 +56,7 @@ public class WaveController : MonoBehaviour
                 }
 
                 Debug.Log("next wave start");
+                
             }
         }
         else
@@ -80,6 +83,8 @@ public class WaveController : MonoBehaviour
             wave++;
             lastWaveEnd = Time.time;
             onWaveBreak = true;
+
+            waveText.text = "Wave " + wave;
 
             this.GetComponent<AudioSource>().clip = waveStartSound;
             this.GetComponent<AudioSource>().Play();
