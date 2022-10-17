@@ -33,7 +33,9 @@ Play as a scientist who has lost control of the lab. Test subjects are on the lo
 
 ## Your Additions
 
-I plan to make all of the assets myself. I am going to try to stick to the minimum viable product in order to have plenty of time for asset production.
+(Checkpoint 2) I plan to make all of the assets myself. I am going to try to stick to the minimum viable product in order to have plenty of time for asset production.
+
+(Checkpoint 4) I did all of the assets from scratch, however, I also added a lot of complexity with a custom animation system, wave system, A* pathfinding, and an event based collision system used for various purposes throughout the project.
 
 ## Sources
 
