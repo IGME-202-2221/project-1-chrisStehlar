@@ -1,4 +1,4 @@
-# Project PROJECT_NAME
+# Project Wavelength
 
 [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Here-Cheatsheet)
 
@@ -11,9 +11,9 @@
 
 -   Camera Orientation: Topdown
 -   Camera Movement: Follow player
--   Player Health: Screen effects
+-   Player Health: Screen overlay
 -   End Condition: Wave survival
--   Scoring: Kill count and waves survived
+-   Scoring: Shooting enemies, killing enemies, and repairing barricades
 
 ### Game Description
 
@@ -28,6 +28,7 @@ Play as a scientist who has lost control of the lab. Test subjects are on the lo
     -   Right: D
 -   Fire: Left-click
 -   Reload: R
+-   Fix barricade and buy guns: E
 
 ## Your Additions
 
@@ -35,14 +36,14 @@ I plan to make all of the assets myself. I am going to try to stick to the minim
 
 ## Sources
 
--   _List all project sources here –models, textures, sound clips, assets, etc._
--   _If an asset is from the Unity store, include a link to the page and the author’s name_
+-   All sprites, animations, scripts, sound design, and every other piece of media in the project was made by me
+-   Guide to A* pathfinding algorithm by Sebastian Lague, more details in revelant script
 
 ## Known Issues
 
-_List any errors, lack of error checking, or specific information that I need to know to run your program_
+There are no known errors. 
 
 ### Requirements not completed
 
-_If you did not complete a project requirement, notate that here_
+Not neccessarily a requirement, but there is a very distinct lack of sound design besides the wave completion motif. Looking back, I wish I would have set aside more time for production (more sound effects, animations) instead of prototyping mechanics. 
 
