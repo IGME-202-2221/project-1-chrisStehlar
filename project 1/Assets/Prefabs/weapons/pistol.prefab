@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 5984981372157914734, guid: b5fa07066b0ac1f4cb430acf67cb9aef, type: 3}
   shotCooldown: 0.16
-  maxAmmo: 45
+  maxAmmo: 18
   maxClip: 9
   ammo: 9
   uiAmmoIcon: {fileID: 21300000, guid: c5271986a6dc69f4a93fb6baca9cf87e, type: 3}

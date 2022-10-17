@@ -157,4 +157,5 @@ MonoBehaviour:
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  isSolid: 0
+  isSolid: 1
+  isStatic: 0

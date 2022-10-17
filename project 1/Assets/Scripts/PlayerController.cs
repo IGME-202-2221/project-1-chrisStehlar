@@ -70,8 +70,8 @@ public class PlayerController : MonoBehaviour
 
             if(Input.GetKeyDown(KeyCode.R))
             {
-                weaponInstance.Reload();
-                ammo -= weaponInstance.maxClip;
+                weaponInstance.Reload(ref ammo);
+                //ammo -= weaponInstance.maxClip;
             }
 
             CheckHealth();
@@ -219,6 +219,7 @@ public class PlayerController : MonoBehaviour
         if(!weapon.transform.IsChildOf(this.transform))
         {
             weaponInstance = Instantiate(weapon.gameObject, this.transform.position, this.transform.rotation, this.transform).GetComponent<Gun>();
+            ammo = weaponInstance.maxAmmo;
         }
     }
 

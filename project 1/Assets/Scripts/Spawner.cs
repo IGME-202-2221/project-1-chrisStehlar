@@ -68,7 +68,7 @@ public class Spawner : MonoBehaviour
 
             // spawn the choice
 
-            Instantiate(enemySpawnChoice.enemy, this.transform.position, this.transform.rotation);
+            Instantiate(enemySpawnChoice.enemy, this.transform.position, Quaternion.identity);
             weightLeft -= enemySpawnChoice.weight;
 
             // reset spawn timer

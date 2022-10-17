@@ -38,9 +38,21 @@ public class Gun : MonoBehaviour
 
     // METHODS
     
-    public void Reload()
+    public void Reload(ref int ammoSource)
     {
-        ammo = maxClip;
+        // if there is enough to fill the clip then take off the difference from the source and max the clip
+        if(ammoSource >= maxClip - ammo)
+        {
+            ammoSource -= maxClip - ammo;
+            ammo = maxClip;
+        }
+        // else empty the source and get as much into the clip as possible
+        else
+        {
+            ammo += ammoSource;
+            ammoSource = 0;
+        }
+        
         //Debug.Log("reloaded");
     }
 
