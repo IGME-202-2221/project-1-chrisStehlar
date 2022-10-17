@@ -1,4 +1,5 @@
-# Project Wavelength
+# Project 1 - "Wavelength"
+v.alpha 0.1
 
 [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Here-Cheatsheet)
 
